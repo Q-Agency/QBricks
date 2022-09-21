@@ -1,1 +1,1 @@
-{"bricks":{"clean_feature":{"path":"bricks/clean_feature"},"entity":{"path":"bricks/entity"},"model":{"path":"bricks/model"},"repository":{"path":"bricks/repository"},"notifier":{"path":"bricks/notifier"}}}
+{"bricks":{"entity":{"path":"/Users/q_guest/Desktop/Q/QBricks/bricks/entity"},"model":{"path":"/Users/q_guest/Desktop/Q/QBricks/bricks/model"},"repository":{"path":"/Users/q_guest/Desktop/Q/QBricks/bricks/repository"},"notifier":{"path":"/Users/q_guest/Desktop/Q/QBricks/bricks/notifier"},"local_storage":{"path":"/Users/q_guest/Desktop/Q/QBricks/bricks/local_storage"}}}
