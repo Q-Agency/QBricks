@@ -18,13 +18,15 @@ mason make repository --name loginRepository --feature_name login
 
 | Variable         | Description                      | Default         | Type      |
 | ---------------- | -------------------------------- | --------------- | --------- |
+| `project_name`   | The name of the project          | app             | `string`  |
 | `name`           | The name of the repository       | loginRepository | `string`  |
+| `entity`         | Entity related to the notifier   | user | `string`  |
 | `feautre_name`   | The name of the feature          | login           | `string`  |
 
 ## Outputs 📦
 
 ```
-mason make repository --name loginRepository --feature_name login
+mason make repository --name loginRepository --feature_name login --entity user
 ├── features
       ├── login
           ├── data
