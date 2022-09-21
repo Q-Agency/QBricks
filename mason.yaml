@@ -7,3 +7,9 @@ bricks:
     path: bricks/repository
   notifier:
     path: bricks/notifier
+  firebase_messaging:
+    path: bricks/firebase_messaging
+  connectivity:
+    path: bricks/connectivity
+  file_picker:
+    path: bricks/file_picker
