@@ -11,3 +11,13 @@ bricks:
     path: bricks/local_storage
   permissions_handler:
     path: bricks/permissions_handler
+  firebase_messaging:
+    path: bricks/firebase_messaging
+  connectivity:
+    path: bricks/connectivity
+  file_picker:
+    path: bricks/file_picker
+  local_auth:
+    path: bricks/local_auth
+  url_launcher:
+    path: bricks/url_launcher
