@@ -20,5 +20,16 @@ mason make connectivity --project_name app
 | ---------------- | -------------------------------- | --------------- | --------- |
 | `project_name`   | The name of the project          | app             | `string`  |
 
+## Outputs 📦
+
+```
+mason make file_picker --project_name app
+├── features
+      ├── file_picker
+          ├── data
+                ├── repositories
+                      ├── file_picker_repository.dart
+```
+
 ## Steps to finish setup
 - add file_picker package to your project's pubspec.yaml

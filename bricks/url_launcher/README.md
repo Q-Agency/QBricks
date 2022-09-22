@@ -20,6 +20,17 @@ mason make connectivity --project_name app
 | ---------------- | -------------------------------- | --------------- | --------- |
 | `project_name`   | The name of the project          | app             | `string`  |
 
+## Outputs 📦
+
+```
+mason make url_launcher --project_name app
+├── features
+      ├── url_launcher
+          ├── data
+                ├── repositories
+                      ├── url_launcher_repository.dart
+```
+
 ## Steps to finish setup
 - add url_launcher package to your project's pubspec.yaml
 

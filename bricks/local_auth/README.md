@@ -20,6 +20,17 @@ mason make connectivity --project_name app
 | ---------------- | -------------------------------- | --------------- | --------- |
 | `project_name`   | The name of the project          | app             | `string`  |
 
+## Outputs 📦
+
+```
+mason make local_auth --project_name app
+├── features
+      ├── local_auth
+          ├── data
+                ├── repositories
+                      ├── local_auth_repository.dart
+```
+
 ## Steps to finish setup
 ### Android
 - add permission to your AndroidManifest.xml file `<uses-permission android:name="android.permission.USE_BIOMETRIC"/>`

@@ -20,6 +20,24 @@ mason make firebase_messaging --project_name app
 | ---------------- | -------------------------------- | --------------- | --------- |
 | `project_name`   | The name of the project          | app             | `string`  |
 
+## Outputs 📦
+
+```
+mason make firebase_messaging --project_name app
+├── features
+      ├── firebase_messaging
+          ├── data
+                ├── entities
+                      ├── firebase_messaging_notification.dart
+                ├── repositories
+                      ├── firebase_messaging_repository.dart
+          ├── domain
+                ├── notifiers
+                      ├── firebase_messaging_notifier.dart
+                ├── utils
+                      ├── firebase_messaging_extensions.dart
+```
+
 ## Steps to finish setup
 ### Android
 To finish Android setup 

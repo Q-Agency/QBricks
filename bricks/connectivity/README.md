@@ -20,6 +20,19 @@ mason make connectivity --project_name app
 | ---------------- | -------------------------------- | --------------- | --------- |
 | `project_name`   | The name of the project          | app             | `string`  |
 
+## Outputs 📦
+
+```
+mason make connectivity --project_name app
+├── features
+      ├── connectivity
+          ├── domain
+                ├── notifiers
+                      ├── connectivity_notifier.dart
+                ├── utils
+                      ├── connectivity_extensions.dart
+```
+
 ## Steps to finish setup
 - add connectivity_plus package to your project's pubspec.yaml
 - add `ref.globalConnectivityListener();` in the widget where you want to listen for connection changes
