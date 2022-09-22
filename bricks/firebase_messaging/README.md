@@ -36,7 +36,7 @@ To finish iOS setup
 - add PushNotification capability in Xcode (ios/Runner/Runner.entitlements file) 
 - add GoogleService-Info.plist file to ios/Runner directory
 
-### Both platforms
+### Flutter
 - add firebase_messaging dependency to your project's pubspec.yaml and add 
 `await Firebase.initializeApp()` in main.dart
 - add `ref.firebaseMessagingNotificationListener();` in the widget where you want to listen for 
