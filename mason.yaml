@@ -7,3 +7,7 @@ bricks:
     path: bricks/repository
   notifier:
     path: bricks/notifier
+  local_storage:
+    path: bricks/local_storage
+  permissions_handler:
+    path: bricks/permissions_handler
