@@ -17,7 +17,7 @@ mason make local_storage
 ## Outputs 📦
 
 ```
-mason make repository --name loginRepository --feature_name login
+mason make local_storage
 ├── lib
       ├── common
           ├── data
