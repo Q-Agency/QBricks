@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()}}/domain/entities/{{type.snakeCase()}}.dart';
 {{/methods}}
 import 'package:{{project_name.snakeCase()}}/common/data/api_client.dart';
+import 'package:{{project_name.snakeCase()}}/common/domain/either_failure_or.dart';
 
 
 final {{name.camelCase()}}Provider = Provider<{{name.pascalCase()}}>((ref) {
@@ -13,7 +14,7 @@ final {{name.camelCase()}}Provider = Provider<{{name.pascalCase()}}>((ref) {
 });
 
 abstract class {{name.pascalCase()}} { {{#methods}}
-  Future<{{type}}> {{methodName}};
+  EitherFailureOr<{{type}}> {{methodName}};
   {{/methods}}
 }
 
@@ -26,7 +27,7 @@ class {{name.pascalCase()}}Impl implements {{name.pascalCase()}}{
   
   {{#methods}}
   @override
-  Future<{{type}}> {{methodName}} async {
+  EitherFailureOr<{{type}}> {{methodName}} async {
     throw UnimplementedError();
   } {{/methods}}
 }

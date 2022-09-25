@@ -32,7 +32,7 @@ void run(HookContext context) async {
     };
   }
   if (!logger.confirm(
-    '? Do you want to add methods to your repository?',
+    '? Do you want to add methods to your repository?\nNOTE: All repository methods have EitherFailureOr<Type> return type',
     defaultValue: true,
   )) {
     return;
