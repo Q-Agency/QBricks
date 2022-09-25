@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()}}/domain/entities/{{type.snakeCase()}}.dart';
 {{/methods}}
 import 'package:{{project_name.snakeCase()}}/common/data/api_client.dart';
+import 'package:{{project_name.snakeCase()}}/common/data/providers.dart';
 import 'package:{{project_name.snakeCase()}}/common/domain/either_failure_or.dart';
 
 
