@@ -38,7 +38,9 @@ void run(HookContext context) async {
     return;
   }
   logger.alert(lightYellow.wrap('enter "e" to exit adding methods'));
-  logger.alert('Format: returnType methodName e.g, String myMethod:');
+  logger.alert(
+      'Format: returnType methodName(returnType name, ...) e.g, String myMethod:');
+
   final methods = <Map<String, dynamic>>[];
   while (true) {
     final method = logger.prompt(':').replaceAll(RegExp('\\s+'), ' ').trim();
