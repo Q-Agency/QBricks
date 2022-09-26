@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:reusability/common/domain/notifiers/base_state.dart';
 import 'package:reusability/common/domain/notifiers/base_state_notifier.dart';
 import 'package:reusability/features/firebase_messaging/data/entities/firebase_messaging_notification.dart';

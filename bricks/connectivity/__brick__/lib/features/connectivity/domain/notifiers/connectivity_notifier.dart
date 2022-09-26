@@ -1,5 +1,5 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final connectivityProvider = StateNotifierProvider<ConnectivityNotifier, ConnectivityResult?>(
   (ref) => ConnectivityNotifier(Connectivity()),

@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:{{project_name.snakeCase()}}/common/domain/either_failure_or.dart';
 import 'package:{{project_name.snakeCase()}}/common/domain/entities/failure.dart';
 

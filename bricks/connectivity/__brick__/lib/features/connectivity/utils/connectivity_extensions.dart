@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:{{project_name.snakeCase()}}/features/connectivity/domain/notifiers/connectivity_notifier.dart';
 
 extension ConnectivityExtensions on WidgetRef {

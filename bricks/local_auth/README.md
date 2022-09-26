@@ -6,7 +6,8 @@ A brick to add local_auth feature to your project
 
 ## Prerequisites
 
-Installed version of [hooks_riverpod](https://pub.dev/packages/hooks_riverpod)
+- [hooks_riverpod](https://pub.dev/packages/hooks_riverpod)
+- [local_auth](https://pub.dev/packages/local_auth)
 
 ## How to use 🚀
 
@@ -16,9 +17,9 @@ mason make connectivity --project_name app
 
 ## Variables ✨
 
-| Variable         | Description                      | Default         | Type      |
-| ---------------- | -------------------------------- | --------------- | --------- |
-| `project_name`   | The name of the project          | app             | `string`  |
+| Variable       | Description             | Default | Type     |
+|----------------|-------------------------|---------|----------|
+| `project_name` | The name of the project | app     | `string` |
 
 ## Outputs 📦
 
@@ -44,7 +45,5 @@ mason make local_auth --project_name app
 <key>NSFaceIDUsageDescription</key>
 <string>Text with explanation why you need to use Face ID></string>
 ```
-### Flutter
-- add local_auth package to your project's pubspec.yaml
 
 

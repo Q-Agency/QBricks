@@ -6,7 +6,8 @@ A brick to create a permissions handler repository with iOS/Android setup tutori
 
 ## Prerequisites
 
-Installed version of [hooks_riverpod](https://pub.dev/packages/hooks_riverpod)
+- [hooks_riverpod](https://pub.dev/packages/hooks_riverpod)
+- [permission_handler](https://pub.dev/packages/permission_handler)
 
 ## How to use 🚀
 
@@ -26,7 +27,7 @@ mason make permissions_handler
 
 ```dart
 // permissions_handler_repository.dart
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 final permissionsHandlerRepositoryProvider = Provider(

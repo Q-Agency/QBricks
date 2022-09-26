@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:{{project_name.snakeCase()}}/common/domain/either_failure_or.dart';
 import 'package:{{project_name.snakeCase()}}/common/domain/entities/failure.dart';
 import 'package:{{project_name.snakeCase()}}/features/firebase_messaging/data/entities/firebase_messaging_notification.dart';

@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:{{project_name.snakeCase()}}/common/domain/notifiers/base_state.dart';
 import 'package:{{project_name.snakeCase()}}/features/firebase_messaging/data/entities/firebase_messaging_notification.dart';
 import 'package:{{project_name.snakeCase()}}/features/firebase_messaging/domain/notifiers/firebase_messaging_notifier.dart';

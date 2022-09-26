@@ -6,7 +6,8 @@ A brick to add firebase_messaging feature to your project
 
 ## Prerequisites
 
-Installed version of [hooks_riverpod](https://pub.dev/packages/hooks_riverpod)
+- [hooks_riverpod](https://pub.dev/packages/hooks_riverpod)
+- [firebase_messaging](https://pub.dev/packages/firebase_messaging)
 
 ## How to use 🚀
 
@@ -16,9 +17,9 @@ mason make firebase_messaging --project_name app
 
 ## Variables ✨
 
-| Variable         | Description                      | Default         | Type      |
-| ---------------- | -------------------------------- | --------------- | --------- |
-| `project_name`   | The name of the project          | app             | `string`  |
+| Variable       | Description             | Default | Type     |
+|----------------|-------------------------|---------|----------|
+| `project_name` | The name of the project | app     | `string` |
 
 ## Outputs 📦
 
@@ -55,7 +56,6 @@ To finish iOS setup
 - add GoogleService-Info.plist file to ios/Runner directory
 
 ### Flutter
-- add firebase_messaging dependency to your project's pubspec.yaml and add 
-`await Firebase.initializeApp()` in main.dart
+- add `await Firebase.initializeApp()` in main.dart
 - add `ref.firebaseMessagingNotificationListener();` in the widget where you want to listen for 
 push notifications
