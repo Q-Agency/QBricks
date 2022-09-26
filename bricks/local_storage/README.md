@@ -6,7 +6,9 @@ A brick to create a flutter storage repository with shared_preferences, flutter_
 
 ## Prerequisites
 
-Installed version of [hooks_riverpod](https://pub.dev/packages/hooks_riverpod)
+- [hooks_riverpod](https://pub.dev/packages/hooks_riverpod)
+- [shared_preferences](https://pub.dev/packages/shared_preferences)
+- [flutter_secure_storage](https://pub.dev/packages/flutter_secure_storage)
 
 ## How to use 🚀
 
