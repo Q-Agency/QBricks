@@ -26,12 +26,12 @@ void main() {
     {{#methods}}
     group('{{methodName}}', () {
       test('executes success flow', () async {
-        final value = {{name.camelCase()}}.{{methodName}};
+        // final value = {{name.camelCase()}}.{{methodName}};
         //expect(value, equals(smth));
       });
 
       test('executes failure flow', () async {
-        final value = {{name.camelCase()}}.{{methodName}};
+        // final value = {{name.camelCase()}}.{{methodName}};
         //expect(value, equals(smth));
       });
     });
