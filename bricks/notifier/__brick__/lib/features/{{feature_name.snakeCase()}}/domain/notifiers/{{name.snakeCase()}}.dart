@@ -4,6 +4,7 @@ import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()
 {{/dependencies}}
 import 'package:{{project_name.snakeCase()}}/common/domain/notifiers/base_state_notifier.dart';
 import 'package:{{project_name.snakeCase()}}/common/domain/notifiers/base_state.dart';
+import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()}}/domain/entities/{{entity.snakeCase()}}.dart';
 
 
 final {{name.camelCase()}}Provider = StateNotifierProvider<{{name.pascalCase()}}, BaseState<{{entity.pascalCase()}}, Object>>((ref) {
