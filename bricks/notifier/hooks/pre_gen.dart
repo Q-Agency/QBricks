@@ -50,9 +50,9 @@ void run(HookContext context) async {
           'That was not a valid format -> returnType methodName e.g, String myMethod');
       continue;
     }
-    final splitProperty = method.split(' ');
-    final propertyType = splitProperty[0];
-    final propertyName = splitProperty[1];
+    final index = method.indexOf(' ');
+    final propertyType = method.substring(0, index);
+    final propertyName = method.substring(index);
     methods.add({
       'methodName': propertyName,
       'type': propertyType,
