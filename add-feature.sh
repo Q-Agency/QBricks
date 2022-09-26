@@ -1,23 +1,25 @@
-if [ -z "$1" ]; then 
-    echo "No project name provided."; exit 1
-fi
-if [ -z "$2" ]; then 
-    echo "No feature name provided."; exit 1
-fi
-project_name="$1"
-feature_name="$2"
+YELLOW='\033[1;33m'
+NC='\033[0m'
 
-[ ! -f mason.yaml ] && echo "No mason.yaml. Please run mason init" && exit 1
-[ ! -f mason-lock.json ] && echo "No mason-lock.json. Please run mason get" && exit 1
+# project_name="$1"
+# feature_name="$2"
 
-echo "What is the entity name? "
+# [ ! -f mason.yaml ] && echo "No mason.yaml. Please run mason init" && exit 1
+# [ ! -f mason-lock.json ] && echo "No mason-lock.json. Please run mason get" && exit 1
+
+project_name=`basename $(pwd)`
+# printf "${YELLOW}What is the project name? > ${NC}"
+# read project_name
+printf "${YELLOW}What is the feature name? > ${NC}"
+read feature_name
+printf "${YELLOW}What is the entity name? > ${NC}"
 read entity
 
 echo "Setup your entity:"
-mason make entity --feature_name $feature_name --project_name $project_name --entity $entity
+mason make entity --feature_name $feature_name --model_name $entity
 echo "Setup your respone/request model:"
-mason make model --feature_name $feature_name --project_name $project_name
+mason make model --feature_name $feature_name
 echo "Setup your repository:"
 mason make repository --feature_name $feature_name --project_name $project_name
 echo "Setup your notifier:"
-mason make repository --feature_name $feature_name --project_name $project_name
+mason make notifier --feature_name $feature_name --project_name $project_name --entity $entity

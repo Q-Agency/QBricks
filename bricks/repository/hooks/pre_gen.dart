@@ -4,12 +4,10 @@ void run(HookContext context) async {
   final logger = context.logger;
 
   if (logger.confirm(
-    '? Do you want to add dependencies to your repository?',
+    '? Do you want to add dependencies to your repository?\nNOTE: apiClient is automatically added as a dependency.',
     defaultValue: true,
   )) {
     logger.alert(lightYellow.wrap('enter "e" to exit adding dependencies'));
-    logger.alert(lightYellow
-        .wrap('NOTE: apiClient is automatically added as a dependency.'));
     logger.alert('Format: dependencyName');
     final dependencies = <Map<String, dynamic>>[];
     while (true) {
