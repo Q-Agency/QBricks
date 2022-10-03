@@ -47,6 +47,27 @@ To finish Android setup
 - add google-services.json to android/app/ directory
 - add "classpath 'com.google.gms:google-services:<latest_version>'" to android/build.gradle file
 - add "apply plugin: 'com.google.gms.google-services'" to android/app/build.gradle file
+- about push notification icon:
+  - to make sure that notification icon is displayed properly on all Android devices and OS versions, 
+  add png icon with transparent background (or with solid background but transparent logo) to 
+  `res/drawable` folder (to find out more: https://stackoverflow.com/a/45318726)
+  - link icon from `res/drawable` in your manifest file (more info here 
+  https://firebase.google.com/docs/cloud-messaging/android/client#manifest)
+  ```
+  <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
+     See README(https://goo.gl/l4GJaQ) for more. -->
+  <meta-data
+    android:name="com.google.firebase.messaging.default_notification_icon"
+    android:resource="@drawable/your_notification_icon" />
+  ```
+  and you can also define color for your icon:
+  ```
+  <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
+     notification message. See README(https://goo.gl/6BKBk7) for more. -->
+  <meta-data
+    android:name="com.google.firebase.messaging.default_notification_color"
+    android:resource="@color/colorAccent" />
+  ```
 
 ### iOS
 To finish iOS setup
