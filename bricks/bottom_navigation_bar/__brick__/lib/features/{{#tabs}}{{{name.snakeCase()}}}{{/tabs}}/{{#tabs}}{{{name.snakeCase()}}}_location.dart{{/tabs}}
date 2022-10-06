@@ -1,0 +1,28 @@
+import 'package:beamer/beamer.dart';
+import 'package:flutter/material.dart';
+import 'package:{{project_name.snakeCase()}}/features/{{#tabs}}{{name.snakeCase()}}/presentation/pages/{{name.snakeCase()}}_page.dart'; 
+
+class {{name.pascalCase()}}Location extends BeamLocation<BeamState> {
+  final RouteInformation routeInformation;
+
+  {{name.pascalCase()}}Location(this.routeInformation) : super(routeInformation);
+
+  @override
+  List<BeamPage> buildPages(BuildContext context, BeamState state) => [
+        const BeamPage(
+          key: ValueKey('{{name.snakeCase()}}'),
+          title: '{{name.titleCase()}}',
+          child: {{name.pascalCase()}}Page(),
+        ),
+        {{#navbar}}{{#isFirst}}if (state.pathPatternSegments.contains('counter'))
+        const BeamPage(
+          key: ValueKey('counter'),
+          title: 'Counter',
+          child: CounterPage(),
+        ),
+         {{/isFirst}}{{/navbar}}
+      ];
+
+  @override
+  List<String> get pathPatterns => [{{^navbar}}{{name.pascalCase()}}Page.routeName{{/navbar}}{{#navbar}}'/*'{{/navbar}}];
+} {{/tabs}}

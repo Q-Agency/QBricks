@@ -1,0 +1,19 @@
+import 'package:beamer/beamer.dart';
+{{#tabs}}
+import 'package:{{project_name.snakeCase()}}/features/{{name.snakeCase()}}/{{name.snakeCase()}}_location.dart'; 
+import 'package:{{project_name.snakeCase()}}/features/{{name.snakeCase()}}/presentation/pages/{{name.snakeCase()}}_page.dart'; {{/tabs}}
+
+List<BeamerDelegate> listOfBeamerDelegates() => [
+      {{#tabs}}
+      BeamerDelegate(
+        initialPath: {{{name.pascalCase()}}}Page.routeName,
+        transitionDelegate: const NoAnimationTransitionDelegate(),
+        locationBuilder: (routeInformation, _) {
+          if (routeInformation.location!.contains('{{{name.snakeCase()}}}')) {
+            return {{{name.pascalCase()}}}Location(routeInformation);
+          }
+          return NotFound(path: routeInformation.location!);
+        },
+      ), {{/tabs}}
+     
+    ];

@@ -1,0 +1,104 @@
+import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+{{#tabs}}{{#isFirst}}
+{{^navbar}}import 'package:beamer/beamer.dart';
+import 'package:{{project_name.snakeCase()}}/features/{{name.snakeCase()}}/{{name.snakeCase()}}_location.dart';
+{{/navbar}}
+import 'package:{{project_name.snakeCase()}}/common/domain/router/navigation_extensions.dart';{{/isFirst}}{{#isLast}}
+import 'package:{{project_name.snakeCase()}}/example/presentation/pages/example_page.dart';
+import 'package:{{project_name.snakeCase()}}/common/domain/router/navigation_extensions.dart';{{/isLast}}
+
+class {{name.pascalCase()}}Page extends ConsumerWidget {
+  static const routeName = '/{{name.snakeCase()}}';
+  const {{name.pascalCase()}}Page({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('{{name.titleCase()}}')),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('{{name.titleCase()}}'),{{#isFirst}}
+            TextButton(
+              onPressed: () => ref.pushNamed(CounterPage.routeName),
+              child: const Text('Go to counter page'),
+            ),{{/isFirst}}{{#isLast}}
+            TextButton(
+              onPressed: () {
+                ref.pushReplacementNamed(ExamplePage.routeName);
+              },
+              child: const Text('Log out'),
+            ),{{/isLast}}
+          ],
+        ),
+      ),
+    );
+  }
+}
+{{#isFirst}}
+class CounterPage extends StatefulWidget {
+  static const routeName = '/{{name.snakeCase()}}/counter';
+
+  const CounterPage({super.key});
+
+  @override
+  State<CounterPage> createState() => _CounterPageState();
+}
+
+class _CounterPageState extends State<CounterPage> {
+  int _counter = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Counter Screen'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Counter: $_counter',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+            const Padding(padding: EdgeInsets.all(4)),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  _counter++;
+                });
+              },
+              child: const Text('Increment counter'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+{{/isFirst}} {{/tabs}}
+
+{{^navbar}}{{#tabs}}{{#isFirst}}
+class CounterLocation extends BeamLocation<BeamState> {
+  final RouteInformation routeInformation;
+  CounterLocation(this.routeInformation) : super(routeInformation);
+
+  @override
+  List<BeamPage> buildPages(BuildContext context, BeamState state) {
+    return [
+      ...{{name.pascalCase()}}Location(routeInformation).buildPages(context, state),
+      if (routeInformation.location!.contains('counter'))
+        const BeamPage(
+          name: CounterPage.routeName,
+          key: ValueKey(CounterPage.routeName),
+          child: CounterPage(),
+        ),
+    ];
+  }
+
+  @override
+  List<Pattern> get pathPatterns => [CounterPage.routeName];
+}{{/isFirst}}{{/tabs}}{{/navbar}}
