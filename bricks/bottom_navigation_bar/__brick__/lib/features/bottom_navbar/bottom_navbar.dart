@@ -15,7 +15,7 @@ class BottomNavbar extends ConsumerStatefulWidget {
   const BottomNavbar({Key? key}) : super(key: key);
   
   @override
-  _BottomNavbarState createState() => _BottomNavbarState();
+  ConsumerState<BottomNavbar> createState() => _BottomNavbarState();
 }
 
 class _BottomNavbarState extends ConsumerState<BottomNavbar> {
@@ -39,7 +39,7 @@ class _BottomNavbarState extends ConsumerState<BottomNavbar> {
             children: {{^navbar}}const{{/navbar}} [{{#tabs}}{{^navbar}}
             {{name.pascalCase()}}Page(),{{/navbar}}{{#navbar}}
             Beamer(
-                routerDelegate: _routerDelegates[{{indexAt}}],
+                routerDelegate: {{#isFirst}}_routerDelegates.first{{/isFirst}}{{^isFirst}}{{#isLast}}_routerDelegates[{{indexAt}}]{{/isLast}}{{/isFirst}},
               ),{{/navbar}}{{/tabs}}
             ],
           ),

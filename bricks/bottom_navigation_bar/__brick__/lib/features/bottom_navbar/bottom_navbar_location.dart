@@ -10,7 +10,7 @@ class BottomNavbarLocation extends BeamLocation<BeamState> {
   @override
   List<BeamPage> buildPages(BuildContext context, BeamState state) {
     return [
-      BeamPage(
+      const BeamPage(
         key: ValueKey('main{{^navbar}}-${DateTime.now()}{{/navbar}}'),
         title: 'Home',
         child: BottomNavbar(),

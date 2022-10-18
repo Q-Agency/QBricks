@@ -19,8 +19,8 @@ class {{name.pascalCase()}}Page extends ConsumerWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text('{{name.titleCase()}}'),{{#isFirst}}
+          children: {{^isFirst}}{{^isLast}}const{{/isLast}}{{/isFirst}} [
+            {{#isFirst}}{{#isLast}}const{{/isLast}}{{/isFirst}} Text('{{name.titleCase()}}'),{{#isFirst}}
             TextButton(
               onPressed: () => ref.pushNamed(CounterPage.routeName),
               child: const Text('Go to counter page'),
