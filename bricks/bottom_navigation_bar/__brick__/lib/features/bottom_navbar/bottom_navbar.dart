@@ -39,7 +39,7 @@ class _BottomNavbarState extends ConsumerState<BottomNavbar> {
             children: {{^navbar}}const{{/navbar}} [{{#tabs}}{{^navbar}}
             {{name.pascalCase()}}Page(),{{/navbar}}{{#navbar}}
             Beamer(
-                routerDelegate: {{#isFirst}}_routerDelegates.first{{/isFirst}}{^isFirst}}{{^isLast}}_routerDelegates[{{indexAt}}]{{/isLast}}{{/isFirst}}{{#isLast}}_routerDelegates[{{indexAt}}]{{/isLast}},
+                routerDelegate: {{#isFirst}}_routerDelegates.first{{/isFirst}}{{#isLast}}_routerDelegates[{{indexAt}}]{{/isLast}}{{^isFirst}}{{^isLast}}_routerDelegates[{{indexAt}}]{{/isLast}}{{/isFirst}},
               ),{{/navbar}}{{/tabs}}
             ],
           ),
