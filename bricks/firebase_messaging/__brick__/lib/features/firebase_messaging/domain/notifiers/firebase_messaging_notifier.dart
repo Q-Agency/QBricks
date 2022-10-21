@@ -1,17 +1,21 @@
 import 'dart:developer';
 
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:reusability/common/domain/notifiers/base_state.dart';
-import 'package:reusability/common/domain/notifiers/base_state_notifier.dart';
-import 'package:reusability/features/firebase_messaging/data/entities/firebase_messaging_notification.dart';
-import 'package:reusability/features/firebase_messaging/data/repositories/firebase_messaging_repository.dart';
+import 'package:{{project_name.snakeCase()}}/common/domain/notifiers/base_state.dart';
+import 'package:{{project_name.snakeCase()}}/common/domain/notifiers/base_state_notifier.dart';
+import 'package:{{project_name.snakeCase()}}/features/firebase_messaging/data/entities/firebase_messaging_notification.dart';
+import 'package:{{project_name.snakeCase()}}/features/firebase_messaging/data/repositories/firebase_messaging_repository.dart';
 
-final firebaseMessagingNotifier =
-StateNotifierProvider<FirebaseMessagingNotifier, BaseState<FirebaseMessagingNotification, void>>(
-      (ref) => FirebaseMessagingNotifier(ref.watch(firebaseMessagingRepositoryProvider), ref.read),
+final firebaseMessagingNotifier = StateNotifierProvider<
+    FirebaseMessagingNotifier, BaseState<FirebaseMessagingNotification, void>>(
+  (ref) => FirebaseMessagingNotifier(
+    ref.watch(firebaseMessagingRepositoryProvider),
+    ref,
+  ),
 );
 
-class FirebaseMessagingNotifier extends BaseStateNotifier<FirebaseMessagingNotification, void> {
+class FirebaseMessagingNotifier
+    extends BaseStateNotifier<FirebaseMessagingNotification, void> {
   final FirebaseMessagingRepository _firebaseMessagingRepository;
 
   FirebaseMessagingNotifier(this._firebaseMessagingRepository, super.reader) {
@@ -35,7 +39,7 @@ class FirebaseMessagingNotifier extends BaseStateNotifier<FirebaseMessagingNotif
 
   void _listenForNotification() async {
     await for (FirebaseMessagingNotification firebaseMessagingNotification
-    in _firebaseMessagingRepository.listenForNotifications()) {
+        in _firebaseMessagingRepository.listenForNotifications()) {
       state = BaseState.data(firebaseMessagingNotification);
     }
   }
