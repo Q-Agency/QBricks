@@ -6,8 +6,8 @@ import 'package:{{project_name.snakeCase()}}/common/domain/notifiers/base_state_
 import 'package:{{project_name.snakeCase()}}/features/firebase_messaging/data/entities/firebase_messaging_notification.dart';
 import 'package:{{project_name.snakeCase()}}/features/firebase_messaging/data/repositories/firebase_messaging_repository.dart';
 
-final firebaseMessagingNotifier = StateNotifierProvider<
-    FirebaseMessagingNotifier, BaseState<FirebaseMessagingNotification, void>>(
+final firebaseMessagingProvider = StateNotifierProvider<
+    FirebaseMessagingNotifier, BaseState<FirebaseMessagingNotification>>(
   (ref) => FirebaseMessagingNotifier(
     ref.watch(firebaseMessagingRepositoryProvider),
     ref,
@@ -15,7 +15,7 @@ final firebaseMessagingNotifier = StateNotifierProvider<
 );
 
 class FirebaseMessagingNotifier
-    extends BaseStateNotifier<FirebaseMessagingNotification, void> {
+    extends BaseStateNotifier<FirebaseMessagingNotification> {
   final FirebaseMessagingRepository _firebaseMessagingRepository;
 
   FirebaseMessagingNotifier(this._firebaseMessagingRepository, super.reader) {

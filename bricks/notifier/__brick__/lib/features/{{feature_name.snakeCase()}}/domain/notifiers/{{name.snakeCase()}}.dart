@@ -7,13 +7,13 @@ import 'package:{{project_name.snakeCase()}}/common/domain/notifiers/base_state.
 import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()}}/domain/entities/{{entity.snakeCase()}}.dart';
 
 
-final {{name.camelCase()}}Provider = StateNotifierProvider<{{name.pascalCase()}}, BaseState<{{entity.pascalCase()}}, Object>>((ref) {
+final {{name.camelCase()}}Provider = StateNotifierProvider<{{name.pascalCase()}}, BaseState<{{entity.pascalCase()}}>>((ref) {
   return {{name.pascalCase()}}(
       {{#dependencies}}ref.read({{dependencyName.camelCase()}}Provider),{{/dependencies}} ref,
   );
 });
 
-class {{name.pascalCase()}} extends BaseStateNotifier<{{entity.pascalCase()}}, Object>{
+class {{name.pascalCase()}} extends BaseStateNotifier<{{entity.pascalCase()}}>{
   {{#dependencies}}final {{dependencyName.pascalCase()}} _{{dependencyName.camelCase()}};
   {{/dependencies}}
 
