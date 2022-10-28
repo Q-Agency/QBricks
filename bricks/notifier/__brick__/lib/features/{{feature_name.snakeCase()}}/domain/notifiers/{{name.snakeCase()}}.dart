@@ -17,7 +17,7 @@ class {{name.pascalCase()}} extends BaseStateNotifier<{{entity.pascalCase()}}>{
   {{#dependencies}}final {{dependencyName.pascalCase()}} _{{dependencyName.camelCase()}};
   {{/dependencies}}
 
-  {{name.pascalCase()}}({{#dependencies}}this._{{dependencyName.camelCase()}},{{/dependencies}} super.reader);
+  {{name.pascalCase()}}({{#dependencies}}this._{{dependencyName.camelCase()}},{{/dependencies}} super.ref);
   
   {{#methods}}
   Future<{{type}}> {{methodName}} async {

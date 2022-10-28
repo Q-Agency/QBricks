@@ -11,16 +11,14 @@ final firebaseMessagingProvider = StateNotifierProvider<
   (ref) => FirebaseMessagingNotifier(
     ref.watch(firebaseMessagingRepositoryProvider),
     ref,
-  ),
+  )..init(),
 );
 
 class FirebaseMessagingNotifier
     extends BaseStateNotifier<FirebaseMessagingNotification> {
   final FirebaseMessagingRepository _firebaseMessagingRepository;
 
-  FirebaseMessagingNotifier(this._firebaseMessagingRepository, super.reader) {
-    _init();
-  }
+  FirebaseMessagingNotifier(this._firebaseMessagingRepository, super.ref);
 
   @override
   void dispose() {
@@ -28,7 +26,7 @@ class FirebaseMessagingNotifier
     super.dispose();
   }
 
-  Future<void> _init() async {
+  Future<void> init() async {
     final result = await _firebaseMessagingRepository.init();
     result.fold((failure) => setGlobalFailure(failure), (_) {
       _getToken();
