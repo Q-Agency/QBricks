@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 {{#methods}}
-import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()}}/domain/entities/{{type.snakeCase()}}.dart';
+import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()}}/domain/entities/{{#isList}}{{{listType.snakeCase()}}}{{/isList}}{{^isList}}{{{type.snakeCase()}}}{{/isList}}.dart';
 {{/methods}}
 import 'package:{{project_name.snakeCase()}}/common/data/api_client.dart';
 import 'package:{{project_name.snakeCase()}}/common/data/providers.dart';
@@ -14,7 +14,7 @@ final {{name.camelCase()}}Provider = Provider<{{name.pascalCase()}}>((ref) {
 });
 
 abstract class {{name.pascalCase()}} { {{#methods}}
-  EitherFailureOr<{{type}}> {{methodName}};
+  EitherFailureOr<{{{type}}}{{#isOptional}}?{{/isOptional}}> {{methodName}};
   {{/methods}}
 }
 
@@ -27,7 +27,7 @@ class {{name.pascalCase()}}Impl implements {{name.pascalCase()}}{
   
   {{#methods}}
   @override
-  EitherFailureOr<{{type}}> {{methodName}} async {
+  EitherFailureOr<{{{type}}}{{#isOptional}}?{{/isOptional}}> {{methodName}} async {
     throw UnimplementedError();
   } {{/methods}}
 }
