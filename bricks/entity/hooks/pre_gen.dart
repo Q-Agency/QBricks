@@ -57,11 +57,13 @@ void run(HookContext context) {
         propertyType.toLowerCase().contains('>');
     final listProperties = _getCustomListProperties(hasSpecial, propertyType);
     final isCustomDataType = !dataTypes.contains(propertyType) && !hasSpecial;
+    final isOptional = propertyType.endsWith('?');
     properties.add({
       'name': propertyName,
       'type': propertyType,
       'hasSpecial': hasSpecial,
       'isCustomDataType': isCustomDataType,
+      'isOptional': isOptional,
       ...listProperties,
     });
   }

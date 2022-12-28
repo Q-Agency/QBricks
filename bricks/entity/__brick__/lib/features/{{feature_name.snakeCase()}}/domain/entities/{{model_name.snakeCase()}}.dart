@@ -10,7 +10,7 @@ class {{model_name.pascalCase()}} extends Equatable {
 
   
   {{model_name.pascalCase()}} copyWith({{#hasProperties}}{ {{#properties}}
-    {{#hasSpecial}}{{{type}}}{{/hasSpecial}}{{^hasSpecial}}{{type}}{{/hasSpecial}}? {{name}},{{/properties}}
+    {{#hasSpecial}}{{{type}}}{{/hasSpecial}}{{^hasSpecial}}{{type}}{{/hasSpecial}}{{^isOptional}}?{{/isOptional}} {{name}},{{/properties}}
   }{{/hasProperties}}) {
     return {{model_name.pascalCase()}}({{#properties}}
       {{name}}: {{name}} ?? this.{{name}},{{/properties}}

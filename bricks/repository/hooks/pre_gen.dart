@@ -48,15 +48,42 @@ void run(HookContext context) async {
     }
     if (!method.contains(' ')) {
       logger.alert(
-          'That was not a valid format -> returnType methodName e.g, String myMethod');
+          'That was not a valid format -> returnType methodName e.g, String myMethod()');
       continue;
     }
     final index = method.indexOf(' ');
-    final propertyType = method.substring(0, index);
+    var propertyType = method.substring(0, index);
     final propertyName = method.substring(index);
+    if (!propertyName.toLowerCase().contains('(') ||
+        !propertyName.toLowerCase().contains(')')) {
+      logger.alert(
+          'That was not a valid method format -> method must have () and optionally parameters inside');
+      continue;
+    }
+    final isOptional = propertyType.endsWith('?');
+    if (isOptional) {
+      propertyType = propertyType.substring(0, propertyType.length - 1);
+    }
+    final isList = propertyType.toLowerCase().contains('<') ||
+        propertyType.toLowerCase().contains('>') &&
+            propertyType.contains('List');
+    String? listType = null;
+    bool listTypeOptional = false;
+    if (isList) {
+      final startIndex = propertyType.indexOf('<');
+      final endIndex = propertyType.indexOf('>');
+      listType = propertyType.substring(startIndex + 1, endIndex).trim();
+      listTypeOptional = listType.endsWith('?');
+      if (listTypeOptional) {
+        listType = listType.substring(0, listType.length - 1);
+      }
+    }
     methods.add({
       'methodName': propertyName,
       'type': propertyType,
+      'isOptional': isOptional,
+      'isList': isList,
+      'listType': listType,
     });
   }
   context.vars = {
