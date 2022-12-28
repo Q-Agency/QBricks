@@ -37,14 +37,14 @@ mason make entity --model_name user --feature_name login
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
+  final String name;
+  final int age;
+
   const User({
     required this.name,
     required this.age,
   });
-
-  final String name;
-  final int age;
-
+  
   User copyWith({
     String? name,
     int? age,
@@ -57,10 +57,8 @@ class User extends Equatable {
 
   @override
   List<Object?> get props => [
-        name,
-        age,
-      ];
-
+    name,
+    age,
+  ];
 }
-
 ```
