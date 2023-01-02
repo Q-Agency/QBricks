@@ -56,4 +56,47 @@ class LoginNotifier extends BaseStateNotifier<User>{
     throw UnimplementedError();
   }
 }
+
+
+
+// login_notifier_test.dart
+import 'package:flutter_test/flutter_test.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:state_notifier_test/state_notifier_test.dart';
+
+void main() {
+  setUp(() {
+
+  });
+
+  ProviderContainer getProviderContainer() => ProviderContainer(overrides: [
+    loginNotifierProvider
+        .overrideWith((ref) => LoginNotifier(ref)),
+  ]);
+
+  group('login(String username)', () {
+    stateNotifierTest<LoginNotifier, BaseState<User>>(
+      'executes success flow',
+      build: () => getProviderContainer().read(loginNotifierProvider.notifier),
+      setUp: () {
+        // when(someRepository.method()).thenAnswer(
+        // (_) async => Future.value(const Right(None())),
+        // );
+      },
+      actions: (stateNotifier) {},
+      expect: () => [],
+    );
+    stateNotifierTest<LoginNotifier, BaseState<User>>(
+      'executes failure flow',
+      build: () => getProviderContainer().read(loginNotifierProvider.notifier),
+      setUp: () {
+        // when(someRepository.method()).thenAnswer(
+        // (_) async => Future.value(const Right(None())),
+        // );
+      },
+      actions: (stateNotifier) {},
+      expect: () => [],
+    );
+  });
+}
 ```
