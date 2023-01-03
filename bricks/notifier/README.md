@@ -63,6 +63,7 @@ class LoginNotifier extends BaseStateNotifier<User>{
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:state_notifier_test/state_notifier_test.dart';
+import 'package:mocktail/mocktail.dart';
 
 void main() {
   setUp(() {
@@ -79,7 +80,7 @@ void main() {
       'executes success flow',
       build: () => getProviderContainer().read(loginNotifierProvider.notifier),
       setUp: () {
-        // when(someRepository.method()).thenAnswer(
+        // when(someRepository.method).thenAnswer(
         // (_) async => Future.value(const Right(None())),
         // );
       },
@@ -90,7 +91,7 @@ void main() {
       'executes failure flow',
       build: () => getProviderContainer().read(loginNotifierProvider.notifier),
       setUp: () {
-        // when(someRepository.method()).thenAnswer(
+        // when(someRepository.method).thenAnswer(
         // (_) async => Future.value(const Right(None())),
         // );
       },

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:{{project_name.snakeCase()}}/common/domain/notifiers/base_state.dart';
@@ -31,7 +31,7 @@ void main() {
     'executes success flow',
     build: () => getProviderContainer().read({{name.camelCase()}}Provider.notifier),
     setUp: () {
-      // when(someRepository.method()).thenAnswer(
+      // when(someRepository.method).thenAnswer(
       // (_) async => Future.value(const Right(None())),
       // );
     },
@@ -42,7 +42,7 @@ void main() {
     'executes failure flow',
     build: () => getProviderContainer().read({{name.camelCase()}}Provider.notifier),
     setUp: () {
-      // when(someRepository.method()).thenAnswer(
+      // when(someRepository.method).thenAnswer(
       // (_) async => Future.value(const Right(None())),
       // );
     },

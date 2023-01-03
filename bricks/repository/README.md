@@ -62,10 +62,9 @@ class LoginRepositoryImpl implements LoginRepository{
 
 // login_repository_test.dart
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
-class MockApiClient extends Mock implements ApiClient {} 
-
+class MockApiClient extends Mock implements ApiClient {}
 
 void main() {
   late ApiClient apiClient;
