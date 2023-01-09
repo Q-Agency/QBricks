@@ -17,7 +17,7 @@ void run(HookContext context) {
   final logger = context.logger;
 
   if (!logger.confirm(
-    '? Do you want to add properties to your model?',
+    '? Do you want to add properties to your entity?',
     defaultValue: true,
   )) {
     context.vars = {
