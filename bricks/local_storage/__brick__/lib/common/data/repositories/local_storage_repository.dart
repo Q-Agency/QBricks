@@ -44,7 +44,7 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
     this._secureStorage,
     this._sharedPreferencesFuture,
   ) {
-    clearSecureStorageOnReinstall();
+    _clearSecureStorageOnReinstall();
   }
 
   Future<SharedPreferences> get _sharedPrefs async {
@@ -98,7 +98,7 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
   }
 
   ///Necessary because of https://github.com/mogol/flutter_secure_storage/issues/88
-  Future<void> clearSecureStorageOnReinstall() async {
+  Future<void> _clearSecureStorageOnReinstall() async {
     const key = 'hasRunBefore';
     final sharedPreferences = await _sharedPrefs;
     if (sharedPreferences.getBool(key) != true) {
