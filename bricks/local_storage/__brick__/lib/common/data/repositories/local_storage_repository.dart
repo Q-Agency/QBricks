@@ -1,5 +1,5 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final localStorageProvider = Provider<LocalStorageRepository>(
@@ -10,12 +10,12 @@ final localStorageProvider = Provider<LocalStorageRepository>(
 );
 
 abstract class LocalStorageRepository {
-  Future write({
+  Future<void> write({
     required LocalStorageKey key,
     required String value,
   });
 
-  Future writeSecure({
+  Future<void> writeSecure({
     required LocalStorageKey key,
     required String value,
   });
@@ -24,15 +24,15 @@ abstract class LocalStorageRepository {
 
   Future<String?> readSecure(LocalStorageKey key);
 
-  Future delete(LocalStorageKey key);
+  Future<void> delete(LocalStorageKey key);
 
-  Future deleteSecure(LocalStorageKey key);
+  Future<void> deleteSecure(LocalStorageKey key);
 
-  Future deleteAllSharedPrefs();
+  Future<void> deleteAllSharedPrefs();
 
-  Future deleteAllSecure();
+  Future<void> deleteAllSecure();
 
-  Future deleteAll();
+  Future<void> deleteAll();
 }
 
 class LocalStorageRepositoryImpl implements LocalStorageRepository {
@@ -43,14 +43,16 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
   LocalStorageRepositoryImpl(
     this._secureStorage,
     this._sharedPreferencesFuture,
-  );
+  ) {
+    _clearSecureStorageOnReinstall();
+  }
 
   Future<SharedPreferences> get _sharedPrefs async {
     return _sharedPreferencesInstance ??= await _sharedPreferencesFuture;
   }
 
   @override
-  Future write({
+  Future<void> write({
     required LocalStorageKey key,
     required String value,
   }) async {
@@ -58,7 +60,7 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
   }
 
   @override
-  Future writeSecure({
+  Future<void> writeSecure({
     required LocalStorageKey key,
     required String value,
   }) async {
@@ -74,25 +76,35 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
       _secureStorage.read(key: key.key);
 
   @override
-  Future delete(LocalStorageKey key) async =>
+  Future<void> delete(LocalStorageKey key) async =>
       (await _sharedPrefs).remove(key.key);
 
   @override
-  Future deleteSecure(LocalStorageKey key) async =>
+  Future<void> deleteSecure(LocalStorageKey key) async =>
       await _secureStorage.delete(key: key.key);
 
   @override
-  Future deleteAllSharedPrefs() async => (await _sharedPrefs).clear();
+  Future<void> deleteAllSharedPrefs() async => (await _sharedPrefs).clear();
 
   @override
-  Future deleteAllSecure() async => await _secureStorage.deleteAll();
+  Future<void> deleteAllSecure() async => await _secureStorage.deleteAll();
 
   @override
-  Future deleteAll() async {
+  Future<void> deleteAll() async {
     await Future.wait([
       deleteAllSharedPrefs(),
       deleteAllSecure(),
     ]);
+  }
+
+  ///Necessary because of https://github.com/mogol/flutter_secure_storage/issues/88
+  Future<void> _clearSecureStorageOnReinstall() async {
+    const key = 'hasRunBefore';
+    final sharedPreferences = await _sharedPrefs;
+    if (sharedPreferences.getBool(key) != true) {
+      await deleteAllSecure();
+      await sharedPreferences.setBool(key, true);
+    }
   }
 }
 
