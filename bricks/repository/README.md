@@ -16,10 +16,10 @@ mason make repository --name loginRepository --feature_name login
 
 ## Variables ✨
 
-| Variable         | Description                      | Default         | Type      |
-| ---------------- | -------------------------------- | --------------- | --------- |
-| `name`           | The name of the repository       | loginRepository | `string`  |
-| `feautre_name`   | The name of the feature          | login           | `string`  |
+| Variable       | Description                      | Default         | Type      |
+|----------------| -------------------------------- | --------------- | --------- |
+| `name`         | The name of the repository       | loginRepository | `string`  |
+| `feature_name` | The name of the feature          | login           | `string`  |
 
 ## Outputs 📦
 
@@ -38,7 +38,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../domain/entities/user.dart';
 
-
 final loginRepositoryProvider = Provider<LoginRepository>((ref) {
   return LoginRepositoryImpl(
       ref.read(apiClientProvider),
@@ -47,15 +46,12 @@ final loginRepositoryProvider = Provider<LoginRepository>((ref) {
 
 abstract class LoginRepository { 
   Future<User> login();
-  
 }
 
 class LoginRepositoryImpl implements LoginRepository{
   final ApiClient _apiClient;
   
-
   LoginRepositoryImpl(this._apiClient,);
-  
   
   @override
   Future<User> login() async {
@@ -66,10 +62,9 @@ class LoginRepositoryImpl implements LoginRepository{
 
 // login_repository_test.dart
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mockito/mockito.dart';
+import 'package:mocktail/mocktail.dart';
 
-class MockApiClient extends Mock implements ApiClient {} 
-
+class MockApiClient extends Mock implements ApiClient {}
 
 void main() {
   late ApiClient apiClient;
@@ -80,22 +75,18 @@ void main() {
     
     loginRepository = LoginRepositoryImpl(apiClient);
   });
-
     
-    
-    group('login()', () {
-      test('executes success flow', () async {
-        final value = loginRepository.login()();
-        //expect(value, equals(smth));
-      });
-
-      test('executes failure flow', () async {
-        final value = loginRepository.login()();
-        //expect(value, equals(smth));
-      });
+  group('login()', () {
+    test('executes success flow', () async {
+      final value = loginRepository.login()();
+      //expect(value, equals(smth));
     });
     
-
+    test('executes failure flow', () async {
+      final value = loginRepository.login()();
+      //expect(value, equals(smth));
+    });
+  });
 }
 
 ```

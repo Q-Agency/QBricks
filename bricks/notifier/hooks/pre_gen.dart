@@ -39,7 +39,7 @@ void run(HookContext context) async {
   }
   logger.alert(lightYellow.wrap('enter "e" to exit adding methods'));
   logger.alert(
-      'Format: returnType methodName(returnType name, ...) e.g, String myMethod:');
+      'Format: returnType methodName(returnType name, ...) e.g, String myMethod():');
 
   final methods = <Map<String, dynamic>>[];
   while (true) {
@@ -49,12 +49,18 @@ void run(HookContext context) async {
     }
     if (!method.contains(' ')) {
       logger.alert(
-          'That was not a valid format -> returnType methodName e.g, String myMethod');
+          'That was not a valid format -> returnType methodName e.g, String myMethod()');
       continue;
     }
     final index = method.indexOf(' ');
     final propertyType = method.substring(0, index);
     final propertyName = method.substring(index);
+    if (!propertyName.toLowerCase().contains('(') ||
+        !propertyName.toLowerCase().contains(')')) {
+      logger.alert(
+          'That was not a valid method format -> method must have () and optionally parameters inside');
+      continue;
+    }
     methods.add({
       'methodName': propertyName,
       'type': propertyType,

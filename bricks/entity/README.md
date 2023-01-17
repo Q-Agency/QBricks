@@ -12,20 +12,20 @@ Installed version of [Equatable](https://pub.dev/packages/equatable)
 ## How to use 🚀
 
 ```
-mason make entity --model_name user --feature_name login
+mason make entity --entity_name user --feature_name login
 ```
 
 ## Variables ✨
 
-| Variable         | Description                      | Default | Type      |
-| ---------------- | -------------------------------- | ------- | --------- |
-| `model_name`     | The name of the model            | user    | `string`  |
-| `feature_name`   | The name of the feature          | login   | `string`  |
+| Variable       | Description             | Default | Type      |
+|----------------|-------------------------| ------- | --------- |
+| `entity_name`  | The name of the entity  | user    | `string`  |
+| `feature_name` | The name of the feature | login   | `string`  |
 
 ## Outputs 📦
 
 ```
-mason make entity --model_name user --feature_name login
+mason make entity --entity_name user --feature_name login
 ├── features
       ├── login
           ├── domain
@@ -37,14 +37,14 @@ mason make entity --model_name user --feature_name login
 import 'package:equatable/equatable.dart';
 
 class User extends Equatable {
+  final String name;
+  final int age;
+
   const User({
     required this.name,
     required this.age,
   });
-
-  final String name;
-  final int age;
-
+  
   User copyWith({
     String? name,
     int? age,
@@ -57,10 +57,8 @@ class User extends Equatable {
 
   @override
   List<Object?> get props => [
-        name,
-        age,
-      ];
-
+    name,
+    age,
+  ];
 }
-
 ```

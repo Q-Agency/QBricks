@@ -17,7 +17,7 @@ read entity
 
 echo "Setup your entity:"
 mason make entity --feature_name $feature_name --model_name $entity
-echo "Setup your respone/request model:"
+echo "Setup your response/request model:"
 mason make model --feature_name $feature_name
 echo "Setup your repository:"
 mason make repository --feature_name $feature_name --project_name $project_name
