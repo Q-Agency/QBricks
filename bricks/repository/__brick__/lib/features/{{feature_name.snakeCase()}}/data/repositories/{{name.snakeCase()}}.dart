@@ -8,8 +8,8 @@ import 'package:{{project_name.snakeCase()}}/common/domain/either_failure_or.dar
 
 final {{name.camelCase()}}Provider = Provider<{{name.pascalCase()}}>((ref) {
   return {{name.pascalCase()}}Impl(
-      ref.read(apiClientProvider),
-      {{#dependencies}}ref.read({{dependencyName.camelCase()}}Provider),{{/dependencies}}
+      ref.watch(apiClientProvider),
+      {{#dependencies}}ref.watch({{dependencyName.camelCase()}}Provider),{{/dependencies}}
   );
 });
 

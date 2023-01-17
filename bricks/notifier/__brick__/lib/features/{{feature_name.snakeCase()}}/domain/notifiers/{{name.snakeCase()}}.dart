@@ -9,7 +9,7 @@ import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()
 
 final {{name.camelCase()}}Provider = StateNotifierProvider<{{name.pascalCase()}}, BaseState<{{entity.pascalCase()}}>>((ref) {
   return {{name.pascalCase()}}(
-      {{#dependencies}}ref.read({{dependencyName.camelCase()}}Provider),{{/dependencies}} ref,
+      {{#dependencies}}ref.watch({{dependencyName.camelCase()}}Provider),{{/dependencies}} ref,
   );
 });
 
