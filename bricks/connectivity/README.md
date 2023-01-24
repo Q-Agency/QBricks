@@ -32,6 +32,7 @@ mason make connectivity --project_name app
                       ├── connectivity_notifier.dart
                 ├── utils
                       ├── connectivity_extensions.dart
+                      ├── connection_status.dart
 ```
 
 ## Steps to finish setup
