@@ -10,10 +10,10 @@ import 'package:{{project_name.snakeCase()}}/common/data/multipart_request_handl
 import 'package:{{project_name.snakeCase()}}/common/data/multipart_request_handler/multipart_file_holder.dart';
 
 final multipartRequestHandlerProvider = Provider<MultipartRequestHandler>(
-  (_) => MultipartRequestHandler(),
+  (_) => MultipartRequestHandlerImpl(),
 );
 
-class MultipartRequestHandler {
+abstract class MultipartRequestHandler {
   /// Sends out a multipart request to the given [uri] with [body] and [headers].
   ///
   /// Body can contain a normal json file structure, except that the file you are sending needs to be on the top of the hierarchy, it's
@@ -32,6 +32,16 @@ class MultipartRequestHandler {
   ///  'user_id': 1234,
   /// }
   /// ```
+  Future<Map<String, dynamic>> multipartRequest({
+    required Method method,
+    required Uri uri,
+    Map<String, dynamic>? body,
+    Map<String, String>? headers,
+    void Function(int sentBytes, int totalBytes)? progress,
+  });
+}
+
+class MultipartRequestHandlerImpl extends MultipartRequestHandler {
   Future<Map<String, dynamic>> multipartRequest({
     required Method method,
     required Uri uri,
