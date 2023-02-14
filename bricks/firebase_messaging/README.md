@@ -8,6 +8,7 @@ A brick to add firebase_messaging feature to your project
 
 - [hooks_riverpod](https://pub.dev/packages/hooks_riverpod)
 - [firebase_messaging](https://pub.dev/packages/firebase_messaging)
+- [loggy](https://pub.dev/packages/loggy)
 
 ## How to use 🚀
 

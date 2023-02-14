@@ -1,11 +1,8 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 {{#dependencies}}
 import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()}}/data/repositories/{{dependencyName.snakeCase()}}.dart';
 {{/dependencies}}
-import 'package:{{project_name.snakeCase()}}/common/domain/notifiers/base_state_notifier.dart';
-import 'package:{{project_name.snakeCase()}}/common/domain/notifiers/base_state.dart';
 import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()}}/domain/entities/{{entity.snakeCase()}}.dart';
-
+import 'package:q_architecture/q_architecture.dart';
 
 final {{name.camelCase()}}Provider = BaseStateNotifierProvider<{{name.pascalCase()}}, {{entity.pascalCase()}}>((ref) {
   return {{name.pascalCase()}}(

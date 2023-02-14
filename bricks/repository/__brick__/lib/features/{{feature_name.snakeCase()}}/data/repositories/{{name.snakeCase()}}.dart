@@ -1,10 +1,10 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:q_architecture/q_architecture.dart';
 {{#methods}}
 import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()}}/domain/entities/{{#isList}}{{{listType.snakeCase()}}}{{/isList}}{{^isList}}{{{type.snakeCase()}}}{{/isList}}.dart';
 {{/methods}}
 import 'package:{{project_name.snakeCase()}}/common/data/api_client.dart';
 import 'package:{{project_name.snakeCase()}}/common/data/providers.dart';
-import 'package:{{project_name.snakeCase()}}/common/domain/either_failure_or.dart';
 
 final {{name.camelCase()}}Provider = Provider<{{name.pascalCase()}}>((ref) {
   return {{name.pascalCase()}}Impl(
