@@ -2,8 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:{{project_name.snakeCase()}}/common/domain/either_failure_or.dart';
-import 'package:{{project_name.snakeCase()}}/common/domain/entities/failure.dart';
+import 'package:q_architecture/q_architecture.dart';
 
 final filePickerRepositoryProvider = Provider<FilePickerRepository>(
   (ref) => FilePickerRepositoryImpl(FilePicker.platform),
@@ -40,13 +39,17 @@ class FilePickerRepositoryImpl implements FilePickerRepository {
       );
       return Right(result);
     } catch (error, stackTrace) {
-      if (error is PlatformException && error.code == 'read_external_storage_denied') {
-        return Left(Failure.permissionDenied(error: error, stackTrace: stackTrace));
+      if (error is PlatformException &&
+          error.code == 'read_external_storage_denied') {
+        return Left(
+            Failure.permissionDenied(error: error, stackTrace: stackTrace));
       }
-      return Left(Failure.generic(title: 'File picker error', error: error, stackTrace: stackTrace));
+      return Left(Failure.generic(
+          title: 'File picker error', error: error, stackTrace: stackTrace));
     }
   }
 
   @override
-  EitherFailureOr<bool?> clearTemporaryFiles() async => Right(await _filePicker.clearTemporaryFiles());
+  EitherFailureOr<bool?> clearTemporaryFiles() async =>
+      Right(await _filePicker.clearTemporaryFiles());
 }

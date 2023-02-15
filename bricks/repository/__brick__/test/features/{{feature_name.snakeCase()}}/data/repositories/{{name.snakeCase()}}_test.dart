@@ -4,7 +4,6 @@ import 'package:mocktail/mocktail.dart';
 import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()}}/data/repositories/{{name.snakeCase()}}.dart';
 import 'package:{{project_name.snakeCase()}}/common/data/api_client.dart';
 
-
 //ignore: prefer-match-file-name
 {{#dependencies}}
 class Mock{{dependencyName.pascalCase()}} extends Mock implements {{dependencyName.pascalCase()}} {} {{/dependencies}}

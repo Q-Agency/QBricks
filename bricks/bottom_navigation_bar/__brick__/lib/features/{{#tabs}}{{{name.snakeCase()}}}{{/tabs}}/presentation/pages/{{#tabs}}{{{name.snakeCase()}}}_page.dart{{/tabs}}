@@ -4,9 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 {{^navbar}}import 'package:beamer/beamer.dart';
 import 'package:{{project_name.snakeCase()}}/features/{{name.snakeCase()}}/{{name.snakeCase()}}_location.dart';
 {{/navbar}}
-import 'package:{{project_name.snakeCase()}}/common/domain/router/navigation_extensions.dart';{{/isFirst}}{{#isLast}}
+import 'package:q_architecture/q_architecture.dart';{{/isFirst}}{{#isLast}}
 import 'package:{{project_name.snakeCase()}}/example/presentation/pages/example_page.dart';
-import 'package:{{project_name.snakeCase()}}/common/domain/router/navigation_extensions.dart';{{/isLast}}
+import 'package:q_architecture/q_architecture.dart';{{/isLast}}
 
 class {{name.pascalCase()}}Page extends ConsumerWidget {
   static const routeName = '/{{name.snakeCase()}}';

@@ -1,13 +1,10 @@
-import 'dart:developer';
-
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:{{project_name.snakeCase()}}/common/domain/notifiers/base_state.dart';
-import 'package:{{project_name.snakeCase()}}/common/domain/notifiers/base_state_notifier.dart';
+import 'package:loggy/loggy.dart';
+import 'package:q_architecture/q_architecture.dart';
 import 'package:{{project_name.snakeCase()}}/features/firebase_messaging/data/entities/firebase_messaging_notification.dart';
 import 'package:{{project_name.snakeCase()}}/features/firebase_messaging/data/repositories/firebase_messaging_repository.dart';
 
-final firebaseMessagingProvider = StateNotifierProvider<
-    FirebaseMessagingNotifier, BaseState<FirebaseMessagingNotification>>(
+final firebaseMessagingProvider = BaseStateNotifierProvider<
+    FirebaseMessagingNotifier, FirebaseMessagingNotification>(
   (ref) => FirebaseMessagingNotifier(
     ref.watch(firebaseMessagingRepositoryProvider),
     ref,
@@ -36,20 +33,23 @@ class FirebaseMessagingNotifier
   }
 
   void _listenForNotification() async {
-    await for (FirebaseMessagingNotification firebaseMessagingNotification
+    await for (final result
         in _firebaseMessagingRepository.listenForNotifications()) {
-      state = BaseState.data(firebaseMessagingNotification);
+      result.fold(setGlobalFailure, (r) => state = BaseState.data(r));
     }
   }
 
   void _getToken() async {
     final result = await _firebaseMessagingRepository.getToken();
-    result.fold((_) => null, (token) => log('notification token: $token'));
+    result.fold((_) => null, (token) => logDebug('notification token: $token'));
   }
 
   void _onTokenRefresh() async {
-    await for (String token in _firebaseMessagingRepository.onTokenRefresh()) {
-      log('notification token changed: $token');
+    await for (final result in _firebaseMessagingRepository.onTokenRefresh()) {
+      result.fold(
+        (_) => null,
+        (token) => logDebug('notification token changed: $token'),
+      );
     }
   }
 }

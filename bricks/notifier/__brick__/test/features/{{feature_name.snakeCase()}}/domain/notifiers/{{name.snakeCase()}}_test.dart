@@ -1,11 +1,11 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:q_architecture/q_architecture.dart';
+import 'package:state_notifier_test/state_notifier_test.dart';
 
-import 'package:{{project_name.snakeCase()}}/common/domain/notifiers/base_state.dart';
 import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()}}/domain/entities/{{entity.snakeCase()}}.dart';
 import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()}}/domain/notifiers/{{name.snakeCase()}}.dart';
-import 'package:state_notifier_test/state_notifier_test.dart';
 
 //ignore: prefer-match-file-name
 {{#dependencies}}

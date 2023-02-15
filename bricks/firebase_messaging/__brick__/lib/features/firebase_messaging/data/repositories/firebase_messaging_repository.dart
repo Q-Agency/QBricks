@@ -1,24 +1,24 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:{{project_name.snakeCase()}}/common/domain/either_failure_or.dart';
-import 'package:{{project_name.snakeCase()}}/common/domain/entities/failure.dart';
+import 'package:loggy/loggy.dart';
+import 'package:q_architecture/q_architecture.dart';
 import 'package:{{project_name.snakeCase()}}/features/firebase_messaging/data/entities/firebase_messaging_notification.dart';
 
-final firebaseMessagingRepositoryProvider = Provider<FirebaseMessagingRepository>(
-      (ref) => FirebaseMessagingRepositoryImpl(),
+final firebaseMessagingRepositoryProvider =
+    Provider<FirebaseMessagingRepository>(
+  (ref) => FirebaseMessagingRepositoryImpl(),
 );
 
 abstract class FirebaseMessagingRepository {
   EitherFailureOr<Unit> init();
 
-  Stream<FirebaseMessagingNotification> listenForNotifications();
+  StreamFailureOr<FirebaseMessagingNotification> listenForNotifications();
 
-  Stream<String> onTokenRefresh();
+  StreamFailureOr<String> onTokenRefresh();
 
   EitherFailureOr<String?> getToken();
 
@@ -31,7 +31,8 @@ class FirebaseMessagingRepositoryImpl implements FirebaseMessagingRepository {
   @override
   EitherFailureOr<Unit> init() async {
     if (Platform.isIOS) {
-      await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
+      await FirebaseMessaging.instance
+          .setForegroundNotificationPresentationOptions(
         alert: false,
         badge: false,
         sound: false,
@@ -43,17 +44,18 @@ class FirebaseMessagingRepositoryImpl implements FirebaseMessagingRepository {
       if (message != null && message.notification != null) {
         _processNotification(message, NotificationStartedType.onLaunch);
       }
-      FirebaseMessaging.onMessage
-          .listen((RemoteMessage message) => _processNotification(message, NotificationStartedType.onMessage));
-      FirebaseMessaging.onMessageOpenedApp
-          .listen((RemoteMessage message) => _processNotification(message, NotificationStartedType.onResume));
+      FirebaseMessaging.onMessage.listen((RemoteMessage message) =>
+          _processNotification(message, NotificationStartedType.onMessage));
+      FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) =>
+          _processNotification(message, NotificationStartedType.onResume));
       return const Right(unit);
     }
     return Left(Failure.permissionDenied());
   }
 
   @override
-  EitherFailureOr<String?> getToken() async => Right(await FirebaseMessaging.instance.getToken());
+  EitherFailureOr<String?> getToken() async =>
+      Right(await FirebaseMessaging.instance.getToken());
 
   @override
   Stream<FirebaseMessagingNotification> listenForNotifications() {
@@ -61,11 +63,12 @@ class FirebaseMessagingRepositoryImpl implements FirebaseMessagingRepository {
       close();
     }
     _notificationStream = StreamController<FirebaseMessagingNotification>();
-    return _notificationStream!.stream;
+    return _notificationStream!.stream.map((event) => Right(event));
   }
 
   @override
-  Stream<String> onTokenRefresh() => FirebaseMessaging.instance.onTokenRefresh;
+  StreamFailureOr<String> onTokenRefresh() =>
+      FirebaseMessaging.instance.onTokenRefresh.map((event) => Right(event));
 
   @override
   void close() {
@@ -73,15 +76,17 @@ class FirebaseMessagingRepositoryImpl implements FirebaseMessagingRepository {
   }
 
   void _processNotification(
-      RemoteMessage message,
-      NotificationStartedType notificationStartedType,
-      ) {
-    log('''Got raw notification in ${notificationStartedType.toString()} 
+    RemoteMessage message,
+    NotificationStartedType notificationStartedType,
+  ) {
+    logDebug('''Got raw notification in ${notificationStartedType.toString()} 
             notification title: ${message.notification?.title}, 
             body: ${message.notification?.body}, 
             data: ${message.data}''');
-    _notificationStream
-        ?.add(FirebaseMessagingNotification(remoteMessage: message, notificationStartedType: notificationStartedType));
+    _notificationStream?.add(FirebaseMessagingNotification(
+      remoteMessage: message,
+      notificationStartedType: notificationStartedType,
+    ));
   }
 }
 
