@@ -23,3 +23,5 @@ bricks:
     path: bricks/url_launcher
   bottom_navigation_bar:
     path: bricks/bottom_navigation_bar
+  multipart_request_handler:
+    path: bricks/multipart_request_handler
