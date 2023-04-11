@@ -17,7 +17,8 @@ class {{name.pascalCase()}} extends BaseStateNotifier<{{entity.pascalCase()}}>{
   {{name.pascalCase()}}({{#dependencies}}this._{{dependencyName.camelCase()}},{{/dependencies}} super.ref);
   
   {{#methods}}
-  Future<{{type}}> {{methodName}} async {
+  Future<{{{type}}}> {{methodName}}({{#parameters}}
+      {{{type}}} {{parameterName}},{{/parameters}}) async {
     throw UnimplementedError();
   } {{/methods}}
 }

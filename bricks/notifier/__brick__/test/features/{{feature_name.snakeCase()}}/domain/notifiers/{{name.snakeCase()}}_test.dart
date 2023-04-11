@@ -32,7 +32,7 @@ void main() {
     build: () => getProviderContainer().read({{name.camelCase()}}Provider.notifier),
     setUp: () {
       // when(someRepository.method).thenAnswer(
-      // (_) async => Future.value(const Right(None())),
+      // (_) async => const Right(None()),
       // );
     },
     actions: (stateNotifier) {},
@@ -43,7 +43,7 @@ void main() {
     build: () => getProviderContainer().read({{name.camelCase()}}Provider.notifier),
     setUp: () {
       // when(someRepository.method).thenAnswer(
-      // (_) async => Future.value(const Right(None())),
+      // (_) async => Left(testGenericFailure),
       // );
     },
     actions: (stateNotifier) {},
