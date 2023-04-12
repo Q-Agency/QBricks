@@ -1,7 +1,6 @@
 name: repository
 description: A brick to produce boilerplate code for new feature using riverpod
 version: 0.0.1
-repository: https://github.com/DMesek/QBricks/tree/main/bricks/repository
 
 environment:
   mason: ">=0.1.0-dev.38 <0.1.0"
