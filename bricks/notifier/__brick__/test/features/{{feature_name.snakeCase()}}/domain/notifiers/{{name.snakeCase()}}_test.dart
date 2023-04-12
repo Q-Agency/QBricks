@@ -15,7 +15,7 @@ void main() {
   {{#dependencies}}late {{dependencyName.pascalCase()}} {{dependencyName.camelCase()}};
   {{/dependencies}}
 
-  setUp(() {
+  setUpAll(() {
   {{#dependencies}}{{dependencyName.camelCase()}} = Mock{{dependencyName.pascalCase()}}();
   {{/dependencies}}
   });

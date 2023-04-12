@@ -42,11 +42,10 @@ import 'package:myapp/common/domain/notifiers/base_state_notifier.dart';
 import 'package:myapp/common/domain/notifiers/base_state.dart';
 import 'package:myapp/features/login/domain/entities/user.dart';
 
-final loginNotifierProvider = StateNotifierProvider<LoginNotifier, BaseState<User>>((ref) {
-  return LoginNotifier(
+final loginNotifierProvider = StateNotifierProvider<LoginNotifier, BaseState<User>>((ref) => 
+  LoginNotifier(
     ref,
-  );
-});
+  ));
 
 class LoginNotifier extends BaseStateNotifier<User>{
   

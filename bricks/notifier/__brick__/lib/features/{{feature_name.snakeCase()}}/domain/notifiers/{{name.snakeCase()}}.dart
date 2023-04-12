@@ -4,11 +4,10 @@ import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()
 import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()}}/domain/entities/{{entity.snakeCase()}}.dart';
 import 'package:q_architecture/q_architecture.dart';
 
-final {{name.camelCase()}}Provider = BaseStateNotifierProvider<{{name.pascalCase()}}, {{entity.pascalCase()}}>((ref) {
-  return {{name.pascalCase()}}(
+final {{name.camelCase()}}Provider = BaseStateNotifierProvider<{{name.pascalCase()}}, {{entity.pascalCase()}}>((ref) =>
+    {{name.pascalCase()}}(
       {{#dependencies}}ref.watch({{dependencyName.camelCase()}}Provider),{{/dependencies}} ref,
-  );
-});
+    ));
 
 class {{name.pascalCase()}} extends BaseStateNotifier<{{entity.pascalCase()}}>{
   {{#dependencies}}final {{dependencyName.pascalCase()}} _{{dependencyName.camelCase()}};

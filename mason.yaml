@@ -23,3 +23,7 @@ bricks:
     path: bricks/url_launcher
   bottom_navigation_bar:
     path: bricks/bottom_navigation_bar
+  service:
+    path: bricks/service
+  page:
+    path: bricks/page
