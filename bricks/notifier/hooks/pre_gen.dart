@@ -47,23 +47,46 @@ void run(HookContext context) async {
     if (method.toLowerCase() == 'e') {
       break;
     }
-    if (!method.contains(' ')) {
+    if (!method.contains(' ') ||
+        method.contains('(') ||
+        method.split(' ').length < 2) {
       logger.alert(
-          'That was not a valid format -> returnType methodName e.g, String myMethod()');
+          'That was not a valid format -> returnType methodName e.g, String myMethod');
       continue;
     }
-    final index = method.indexOf(' ');
-    final propertyType = method.substring(0, index);
-    final propertyName = method.substring(index);
-    if (!propertyName.toLowerCase().contains('(') ||
-        !propertyName.toLowerCase().contains(')')) {
-      logger.alert(
-          'That was not a valid method format -> method must have () and optionally parameters inside');
-      continue;
+    final splitProperty = method.split(' ');
+    final propertyType = splitProperty[0];
+    final propertyName = splitProperty[1];
+
+    final parameters = <Map<String, dynamic>>[];
+    if (logger.confirm(
+      '? Method has parameters?',
+      defaultValue: true,
+    )) {
+      logger.alert(lightYellow.wrap('enter "e" to exit adding parameters'));
+      logger.alert('Parameters: Type parameterName:');
+      while (true) {
+        final parameter =
+            logger.prompt(':').replaceAll(RegExp('\\s+'), ' ').trim();
+        if (parameter.toLowerCase() == 'e') {
+          break;
+        }
+        final splitProperty = parameter.split(' ');
+        final parameterType = splitProperty[0];
+        final parameterName = splitProperty[1];
+
+        parameters.add({
+          'parameterName': parameterName,
+          'type': parameterType,
+        });
+      }
     }
+    logger.alert('Added method! More methods? enter \'e\' to to finish');
+
     methods.add({
       'methodName': propertyName,
       'type': propertyType,
+      'parameters': parameters,
     });
   }
   context.vars = {

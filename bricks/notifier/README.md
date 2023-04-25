@@ -42,11 +42,10 @@ import 'package:myapp/common/domain/notifiers/base_state_notifier.dart';
 import 'package:myapp/common/domain/notifiers/base_state.dart';
 import 'package:myapp/features/login/domain/entities/user.dart';
 
-final loginNotifierProvider = StateNotifierProvider<LoginNotifier, BaseState<User>>((ref) {
-  return LoginNotifier(
+final loginNotifierProvider = BaseStateNotifierProvider<LoginNotifier, User>((ref) => 
+  LoginNotifier(
     ref,
-  );
-});
+  ));
 
 class LoginNotifier extends BaseStateNotifier<User>{
   
@@ -66,7 +65,10 @@ import 'package:state_notifier_test/state_notifier_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 void main() {
-  setUp(() {
+  late ProviderContainer providerContainer;
+
+  setUpAll(() {
+    TestWidgetsFlutterBinding.ensureInitialized();
 
   });
 
@@ -78,23 +80,25 @@ void main() {
   group('login(String username)', () {
     stateNotifierTest<LoginNotifier, BaseState<User>>(
       'executes success flow',
-      build: () => getProviderContainer().read(loginNotifierProvider.notifier),
       setUp: () {
+        providerContainer = getProviderContainer();
         // when(someRepository.method).thenAnswer(
         // (_) async => Future.value(const Right(None())),
         // );
       },
+      build: () => providerContainer.read(loginNotifierProvider.notifier),
       actions: (stateNotifier) {},
       expect: () => [],
     );
     stateNotifierTest<LoginNotifier, BaseState<User>>(
       'executes failure flow',
-      build: () => getProviderContainer().read(loginNotifierProvider.notifier),
       setUp: () {
+        providerContainer = getProviderContainer();
         // when(someRepository.method).thenAnswer(
         // (_) async => Future.value(const Right(None())),
         // );
       },
+      build: () => providerContainer.read(loginNotifierProvider.notifier),
       actions: (stateNotifier) {},
       expect: () => [],
     );

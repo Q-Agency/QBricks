@@ -14,8 +14,10 @@ class Mock{{dependencyName.pascalCase()}} extends Mock implements {{dependencyNa
 void main() {
   {{#dependencies}}late {{dependencyName.pascalCase()}} {{dependencyName.camelCase()}};
   {{/dependencies}}
+  late ProviderContainer providerContainer;
 
-  setUp(() {
+  setUpAll(() {
+  TestWidgetsFlutterBinding.ensureInitialized();
   {{#dependencies}}{{dependencyName.camelCase()}} = Mock{{dependencyName.pascalCase()}}();
   {{/dependencies}}
   });
@@ -29,23 +31,26 @@ void main() {
   group('{{methodName}}', () {
   stateNotifierTest<{{name.pascalCase()}}, BaseState<{{entity.pascalCase()}}>>(
     'executes success flow',
-    build: () => getProviderContainer().read({{name.camelCase()}}Provider.notifier),
     setUp: () {
+      providerContainer = getProviderContainer();
       // when(someRepository.method).thenAnswer(
-      // (_) async => Future.value(const Right(None())),
+      // (_) async => const Right(None()),
       // );
     },
+    build: () => providerContainer.read({{name.camelCase()}}Provider.notifier),
     actions: (stateNotifier) {},
     expect: () => [],
   );
+
   stateNotifierTest<{{name.pascalCase()}}, BaseState<{{entity.pascalCase()}}>>(
     'executes failure flow',
-    build: () => getProviderContainer().read({{name.camelCase()}}Provider.notifier),
     setUp: () {
+      providerContainer = getProviderContainer();
       // when(someRepository.method).thenAnswer(
-      // (_) async => Future.value(const Right(None())),
+      // (_) async => Left(testGenericFailure),
       // );
     },
+    build: () => providerContainer.read({{name.camelCase()}}Provider.notifier),
     actions: (stateNotifier) {},
     expect: () => [],
   );

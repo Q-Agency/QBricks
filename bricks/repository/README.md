@@ -38,11 +38,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../domain/entities/user.dart';
 
-final loginRepositoryProvider = Provider<LoginRepository>((ref) {
-  return LoginRepositoryImpl(
-      ref.read(apiClientProvider),
-  );
-});
+final loginRepositoryProvider = Provider<LoginRepository>((ref) => 
+    LoginRepositoryImpl(
+      ref.watch(apiClientProvider),
+    ));
 
 abstract class LoginRepository { 
   Future<User> login();
