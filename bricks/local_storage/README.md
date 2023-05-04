@@ -1,8 +1,8 @@
-# Repository
+# local_storage
 
 [![Powered by Mason](https://img.shields.io/endpoint?url=https%3A%2F%2Ftinyurl.com%2Fmason-badge)](https://github.com/felangel/mason)
 
-A brick to create a flutter storage repository with shared_preferences, flutter_secure_storage and riverpod
+A brick to create a flutter storage service with shared_preferences, flutter_secure_storage and riverpod
 
 ## Prerequisites
 
@@ -23,32 +23,33 @@ mason make local_storage
 ├── lib
       ├── common
           ├── data
-                ├── local_storage_repository.dart
+                ├── services
+                    ├── local_storage_service.dart
 ```
 
 ```dart
-// local_storage_repository.dart
+// local_storage_service.dart
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-final localStorageProvider = Provider<LocalStorageRepository>(
-      (_) => LocalStorageRepositoryImpl(
+final localStorageServiceProvider = Provider<LocalStorageService>(
+      (_) => LocalStorageServiceImpl(
     const FlutterSecureStorage(),
     SharedPreferences.getInstance(),
   ),
 );
 
-abstract class LocalStorageRepository {
+abstract class LocalStorageService {
   Future<void> deleteAll();
 }
 
-class LocalStorageRepositoryImpl implements LocalStorageRepository {
+class LocalStorageServiceImpl implements LocalStorageService {
   final FlutterSecureStorage _secureStorage;
   final Future<SharedPreferences> _sharedPreferencesFuture;
   SharedPreferences? _sharedPreferencesInstance;
 
-  LocalStorageRepositoryImpl(
+  LocalStorageServiceImpl(
       this._secureStorage,
       this._sharedPreferencesFuture,
       ) {
@@ -70,7 +71,7 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
   Future<T?> _read<T>(LocalStorageKey key) async =>
       (await _sharedPrefs).get(key.key) as T?;
 
-  Future<String?> _readSecure(LocalStorageKey key) async =>
+  Future<String?> _readSecure(LocalStorageKey key) =>
       _secureStorage.read(key: key.key);
 
   Future<void> _write({
@@ -87,9 +88,15 @@ class LocalStorageRepositoryImpl implements LocalStorageRepository {
     await _secureStorage.write(key: key.key, value: value);
   }
 
+  Future<void> _delete(LocalStorageKey key) async =>
+      (await _sharedPrefs).remove(key.key);
+
+  Future<void> _deleteSecure(LocalStorageKey key) =>
+      _secureStorage.delete(key: key.key);
+
   Future<void> _deleteAllSharedPrefs() async => (await _sharedPrefs).clear();
 
-  Future<void> _deleteAllSecure() async => await _secureStorage.deleteAll();
+  Future<void> _deleteAllSecure() => _secureStorage.deleteAll();
 
   ///Necessary because of https://github.com/mogol/flutter_secure_storage/issues/88
   Future<void> _clearSecureStorageOnReinstall() async {
