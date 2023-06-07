@@ -43,7 +43,7 @@ class FirebaseMessagingRepositoryImpl implements FirebaseMessagingRepository {
           .setForegroundNotificationPresentationOptions(
         alert: {{system_foreground_notifications}},
         badge: false,
-        sound: true,
+        sound: {{system_foreground_notifications}},
       );
     }
     final settings = await FirebaseMessaging.instance.requestPermission();
