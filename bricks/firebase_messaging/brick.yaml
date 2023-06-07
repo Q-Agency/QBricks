@@ -26,3 +26,8 @@ vars:
     type: string
     description: The project name
     prompt: What is the project name?
+  system_foreground_notifications:
+    type: boolean
+    description: if you want to show system push notifications while the app is in foreground, flutter_local_notifications is required for Android
+    default: false
+    prompt: Do you want to show system push notifications while the app is in foreground?
