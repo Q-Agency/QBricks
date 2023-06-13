@@ -12,20 +12,14 @@ A brick to add url_launcher feature to your project
 ## How to use 🚀
 
 ```
-mason make connectivity --project_name app
+mason make url_launcher
 ```
-
-## Variables ✨
-
-| Variable       | Description             | Default | Type     |
-|----------------|-------------------------|---------|----------|
-| `project_name` | The name of the project | app     | `string` |
 
 ## Outputs 📦
 
 ```
 mason make url_launcher --project_name app
-├── features
+├── common
       ├── url_launcher
           ├── data
                 ├── repositories
