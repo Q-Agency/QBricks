@@ -18,10 +18,9 @@ mason make url_launcher
 ## Outputs 📦
 
 ```
-mason make url_launcher --project_name app
+mason make url_launcher
 ├── common
-      ├── url_launcher
-          ├── data
-                ├── repositories
-                      ├── url_launcher_repository.dart
+      ├── data
+          ├── repositories
+                ├── url_launcher_repository.dart
 ```
