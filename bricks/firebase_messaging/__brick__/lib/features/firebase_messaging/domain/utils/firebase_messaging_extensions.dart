@@ -8,7 +8,7 @@ import 'package:{{project_name.snakeCase()}}/features/firebase_messaging/domain/
 extension FirebaseMessagingExtensions on WidgetRef {
   void firebaseMessagingNotificationListener(BuildContext _) {
     listen<BaseState<FirebaseMessagingNotification>>(
-      firebaseMessagingProvider,
+      firebaseMessagingNotifierProvider,
       (previous, current) {
         current.maybeWhen(
           data: (firebaseMessagingNotification) {

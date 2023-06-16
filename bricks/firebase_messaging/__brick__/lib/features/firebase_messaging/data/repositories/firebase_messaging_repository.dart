@@ -1,19 +1,19 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
 import 'package:q_architecture/q_architecture.dart';
 import 'package:{{project_name.snakeCase()}}/features/firebase_messaging/data/entities/firebase_messaging_notification.dart';
 
 final firebaseMessagingRepositoryProvider =
-    Provider<FirebaseMessagingRepository>(
-  (ref) => FirebaseMessagingRepositoryImpl(),
+Provider<FirebaseMessagingRepository>(
+      (ref) => FirebaseMessagingRepositoryImpl(),
 );
 
-abstract class FirebaseMessagingRepository {
+abstract interface class FirebaseMessagingRepository {
   EitherFailureOr<Unit> init();
 
   StreamFailureOr<FirebaseMessagingNotification> listenForNotifications();
@@ -26,16 +26,24 @@ abstract class FirebaseMessagingRepository {
 }
 
 class FirebaseMessagingRepositoryImpl implements FirebaseMessagingRepository {
-  StreamController<FirebaseMessagingNotification>? _notificationStream;
+  StreamController<FirebaseMessagingNotification>?
+  _notificationStreamController;
+  StreamController<FirebaseMessagingNotification>
+  get notificationStreamController {
+    _notificationStreamController ??= StreamController();
+    return _notificationStreamController!;
+  }
+
+  FirebaseMessagingRepositoryImpl();
 
   @override
   EitherFailureOr<Unit> init() async {
-    if (Platform.isIOS) {
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
       await FirebaseMessaging.instance
           .setForegroundNotificationPresentationOptions(
-        alert: false,
+        alert: {{system_foreground_notifications}},
         badge: false,
-        sound: false,
+        sound: {{system_foreground_notifications}},
       );
     }
     final settings = await FirebaseMessaging.instance.requestPermission();
@@ -58,13 +66,8 @@ class FirebaseMessagingRepositoryImpl implements FirebaseMessagingRepository {
       Right(await FirebaseMessaging.instance.getToken());
 
   @override
-  Stream<FirebaseMessagingNotification> listenForNotifications() {
-    if (_notificationStream != null) {
-      close();
-    }
-    _notificationStream = StreamController<FirebaseMessagingNotification>();
-    return _notificationStream!.stream.map((event) => Right(event));
-  }
+  StreamFailureOr<FirebaseMessagingNotification> listenForNotifications() =>
+      notificationStreamController.stream.map((event) => Right(event));
 
   @override
   StreamFailureOr<String> onTokenRefresh() =>
@@ -72,18 +75,19 @@ class FirebaseMessagingRepositoryImpl implements FirebaseMessagingRepository {
 
   @override
   void close() {
-    _notificationStream?.close();
+    _notificationStreamController?.close();
+    _notificationStreamController = null;
   }
 
   void _processNotification(
-    RemoteMessage message,
-    NotificationStartedType notificationStartedType,
-  ) {
+      RemoteMessage message,
+      NotificationStartedType notificationStartedType,
+      ) {
     logDebug('''Got raw notification in ${notificationStartedType.toString()} 
             notification title: ${message.notification?.title}, 
             body: ${message.notification?.body}, 
             data: ${message.data}''');
-    _notificationStream?.add(FirebaseMessagingNotification(
+    notificationStreamController.add(FirebaseMessagingNotification(
       remoteMessage: message,
       notificationStartedType: notificationStartedType,
     ));

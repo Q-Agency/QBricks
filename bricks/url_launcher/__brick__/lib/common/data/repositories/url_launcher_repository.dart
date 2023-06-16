@@ -1,8 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:q_architecture/q_architecture.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:{{project_name.snakeCase()}}/common/domain/either_failure_or.dart';
-import 'package:{{project_name.snakeCase()}}/common/domain/entities/failure.dart';
 
 final urlLauncherRepositoryProvider = Provider<UrlLauncherRepository>(
   (ref) => UrlLauncherRepositoryImpl(),
