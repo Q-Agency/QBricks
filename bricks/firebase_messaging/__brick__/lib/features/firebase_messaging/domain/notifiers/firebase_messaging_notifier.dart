@@ -6,8 +6,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
 import 'package:q_architecture/q_architecture.dart';
-import 'package:{{project_name.snakeCase()}}/features/firebase_messaging/data/entities/firebase_messaging_notification.dart';
 import 'package:{{project_name.snakeCase()}}/features/firebase_messaging/data/repositories/firebase_messaging_repository.dart';
+import 'package:{{project_name.snakeCase()}}/features/firebase_messaging/domain/entities/firebase_messaging_notification.dart';
 
 final firebaseMessagingNotifierProvider = StateNotifierProvider.autoDispose<
     FirebaseMessagingNotifier, BaseState<FirebaseMessagingNotification>>(
