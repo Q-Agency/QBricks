@@ -9,6 +9,10 @@ A brick to add firebase_messaging feature to your project
 - [hooks_riverpod](https://pub.dev/packages/hooks_riverpod)
 - [firebase_messaging](https://pub.dev/packages/firebase_messaging)
 - [loggy](https://pub.dev/packages/loggy)
+- [equatable](https://pub.dev/packages/equatable)
+- [build_runner](https://pub.dev/packages/build_runner)
+- [json_serializable](https://pub.dev/packages/json_serializable)
+- [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) if `system_foreground_notifications` set to `true`
 
 ## How to use 🚀
 
@@ -18,9 +22,10 @@ mason make firebase_messaging --project_name app
 
 ## Variables ✨
 
-| Variable       | Description             | Default | Type     |
-|----------------|-------------------------|---------|----------|
-| `project_name` | The name of the project | app     | `string` |
+| Variable       | Description                                                                                                                       | Default | Type      |
+|----------------|-----------------------------------------------------------------------------------------------------------------------------------|---------|-----------|
+| `project_name` | The name of the project                                                                                                           | app     | `string`  |
+| `system_foreground_notifications` | If you want to show system push notifications while the app is in foreground, `flutter_local_notifications` is required for Android | app     | `boolean` |
 
 ## Outputs 📦
 
@@ -79,5 +84,5 @@ To finish iOS setup
 
 ### Flutter
 - add `await Firebase.initializeApp()` in main.dart
-- add `ref.firebaseMessagingNotificationListener();` in the widget where you want to listen for 
-push notifications
+- add `ref.firebaseMessagingNotificationListener();` in the widget where you want to 
+start listening for push notifications
