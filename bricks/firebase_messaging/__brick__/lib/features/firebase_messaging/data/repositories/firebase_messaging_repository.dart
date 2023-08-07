@@ -84,11 +84,13 @@ class FirebaseMessagingRepositoryImpl implements FirebaseMessagingRepository {
       NotificationStartedType notificationStartedType,
       ) {
     logDebug('''Got raw notification in ${notificationStartedType.toString()} 
-            notification title: ${message.notification?.title}, 
+            title: ${message.notification?.title}, 
             body: ${message.notification?.body}, 
             data: ${message.data}''');
     notificationStreamController.add(FirebaseMessagingNotification(
-      remoteMessage: message,
+      title: message.notification?.title,
+      body: message.notification?.body,
+      data: message.data,
       notificationStartedType: notificationStartedType,
     ));
   }
