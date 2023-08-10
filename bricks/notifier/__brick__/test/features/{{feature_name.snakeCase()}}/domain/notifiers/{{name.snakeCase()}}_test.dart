@@ -16,7 +16,7 @@ void main() {
   {{/dependencies}}
   late ProviderContainer providerContainer;
 
-  setUpAll(() {
+  setUp(() {
   TestWidgetsFlutterBinding.ensureInitialized();
   {{#dependencies}}{{dependencyName.camelCase()}} = Mock{{dependencyName.pascalCase()}}();
   {{/dependencies}}
