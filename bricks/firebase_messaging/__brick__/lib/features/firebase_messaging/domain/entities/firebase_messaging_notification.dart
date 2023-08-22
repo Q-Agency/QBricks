@@ -1,19 +1,21 @@
 import 'package:equatable/equatable.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
 import 'package:{{project_name.snakeCase()}}/features/firebase_messaging/data/repositories/firebase_messaging_repository.dart';
 
 part 'firebase_messaging_notification.g.dart';
 
 @JsonSerializable()
 class FirebaseMessagingNotification extends Equatable {
-  @_RemoteMessageConverter()
-  final RemoteMessage remoteMessage;
+  final String? title;
+  final String? body;
+  final Map<String, dynamic>? data;
   final NotificationStartedType notificationStartedType;
 
   const FirebaseMessagingNotification({
-    required this.remoteMessage,
-    required this.notificationStartedType,
+    this.title,
+    this.body,
+    this.data,
+    this.notificationStartedType = NotificationStartedType.onResume,
   });
 
   factory FirebaseMessagingNotification.fromJson(Map<String, dynamic> json) =>
@@ -22,31 +24,25 @@ class FirebaseMessagingNotification extends Equatable {
   Map<String, dynamic> toJson() => _$FirebaseMessagingNotificationToJson(this);
 
   FirebaseMessagingNotification copyWith({
-    RemoteMessage? remoteMessage,
+    String? title,
+    String? body,
+    Map<String, dynamic>? data,
     NotificationStartedType? notificationStartedType,
   }) {
     return FirebaseMessagingNotification(
-      remoteMessage: remoteMessage ?? this.remoteMessage,
+      title: title ?? this.title,
+      body: body ?? this.body,
+      data: data ?? this.data,
       notificationStartedType:
           notificationStartedType ?? this.notificationStartedType,
     );
   }
 
   @override
-  List<Object?> get props => [remoteMessage, notificationStartedType];
-}
-
-class _RemoteMessageConverter
-    extends JsonConverter<RemoteMessage, Map<String, dynamic>> {
-  const _RemoteMessageConverter();
-
-  @override
-  RemoteMessage fromJson(json) {
-    return RemoteMessage.fromMap(json);
-  }
-
-  @override
-  Map<String, dynamic> toJson(object) {
-    return object.toMap();
-  }
+  List<Object?> get props => [
+        title,
+        body,
+        data,
+        notificationStartedType,
+      ];
 }

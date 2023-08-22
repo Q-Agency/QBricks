@@ -117,17 +117,17 @@ class FirebaseMessagingNotifier
 
   void _showLocalNotification(FirebaseMessagingNotification notification) {
     if (_flutterLocalNotificationsPlugin == null) return;
-    final title = notification.remoteMessage.notification?.title;
-    final body = notification.remoteMessage.notification?.body;
+    final title = notification.title;
+    final body = notification.body;
     if (title == null && body == null) {
       return;
     }
     _flutterLocalNotificationsPlugin?.show(
-      notification.remoteMessage.hashCode,
+      notification.hashCode,
       title,
       body,
       _androidNotificationDetails(),
-      payload: json.encode(notification.toJson()),
+      payload: jsonEncode(notification.toJson()),
     );
   }
 
@@ -136,7 +136,7 @@ class FirebaseMessagingNotifier
     required NotificationStartedType notificationStartedType,
   }) {
     try {
-      final payloadJson = json.decode(notificationResponse.payload!);
+      final payloadJson = jsonDecode(notificationResponse.payload!);
       final notification = FirebaseMessagingNotification.fromJson(payloadJson);
       state = BaseState.data(notification.copyWith(
         notificationStartedType: notificationStartedType,
