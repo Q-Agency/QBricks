@@ -84,5 +84,5 @@ To finish iOS setup
 
 ### Flutter
 - add `await Firebase.initializeApp()` in main.dart
-- add `ref.firebaseMessagingNotificationListener();` in the widget where you want to 
+- add `ref.firebaseMessagingNotificationListener(context);` in the widget where you want to 
 start listening for push notifications
