@@ -7,7 +7,7 @@ final urlLauncherRepositoryProvider = Provider<UrlLauncherRepository>(
   (ref) => UrlLauncherRepositoryImpl(),
 );
 
-abstract class UrlLauncherRepository {
+abstract interface class UrlLauncherRepository {
   EitherFailureOr<bool> openUrl({
     Uri? url,
     String? urlString,

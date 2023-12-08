@@ -10,7 +10,7 @@ import 'package:q_architecture/q_architecture.dart';
 final localAuthRepositoryProvider = Provider<LocalAuthRepository>(
     (ref) => LocalAuthRepositoryImpl(LocalAuthentication()));
 
-abstract class LocalAuthRepository {
+abstract interface class LocalAuthRepository {
   EitherFailureOr<BiometricType> getAvailableBiometricType();
 
   EitherFailureOr<bool> authenticate({

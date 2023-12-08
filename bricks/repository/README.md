@@ -43,7 +43,7 @@ final loginRepositoryProvider = Provider<LoginRepository>((ref) =>
       ref.watch(apiClientProvider),
     ));
 
-abstract class LoginRepository { 
+abstract interface class LoginRepository { 
   Future<User> login();
 }
 

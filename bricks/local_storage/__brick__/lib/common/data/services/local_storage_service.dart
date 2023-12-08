@@ -9,7 +9,7 @@ final localStorageServiceProvider = Provider<LocalStorageService>(
   ),
 );
 
-abstract class LocalStorageService {
+abstract interface class LocalStorageService {
   Future<void> deleteAll();
 }
 

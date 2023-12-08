@@ -8,7 +8,7 @@ final filePickerRepositoryProvider = Provider<FilePickerRepository>(
   (ref) => FilePickerRepositoryImpl(FilePicker.platform),
 );
 
-abstract class FilePickerRepository {
+abstract interface class FilePickerRepository {
   EitherFailureOr<FilePickerResult?> pickFiles({
     FileType type = FileType.any,
     List<String> allowedExtensions,
