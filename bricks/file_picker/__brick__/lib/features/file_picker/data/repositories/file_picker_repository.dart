@@ -1,4 +1,4 @@
-import 'package:dartz/dartz.dart';
+import 'package:either_dart/either.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -8,7 +8,7 @@ final filePickerRepositoryProvider = Provider<FilePickerRepository>(
   (ref) => FilePickerRepositoryImpl(FilePicker.platform),
 );
 
-abstract class FilePickerRepository {
+abstract interface class FilePickerRepository {
   EitherFailureOr<FilePickerResult?> pickFiles({
     FileType type = FileType.any,
     List<String> allowedExtensions,

@@ -7,7 +7,7 @@ final {{name.camelCase()}}Provider = Provider<{{name.pascalCase()}}>((ref) =>
       {{#dependencies}}ref.watch({{dependencyName.camelCase()}}Provider),{{/dependencies}}
     ));
 
-abstract class {{name.pascalCase()}} { {{#methods}}
+abstract interface class {{name.pascalCase()}} { {{#methods}}
   Future<{{{type}}}> {{methodName}}({{#parameters}}
     {{{type}}} {{parameterName}},{{/parameters}});
   {{/methods}}

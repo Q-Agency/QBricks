@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:dartz/dartz.dart';
+import 'package:either_dart/either.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -14,7 +14,7 @@ Provider<FirebaseMessagingRepository>(
 );
 
 abstract interface class FirebaseMessagingRepository {
-  EitherFailureOr<Unit> init();
+  EitherFailureOr<void> init();
 
   StreamFailureOr<FirebaseMessagingNotification> listenForNotifications();
 
@@ -37,7 +37,7 @@ class FirebaseMessagingRepositoryImpl implements FirebaseMessagingRepository {
   FirebaseMessagingRepositoryImpl();
 
   @override
-  EitherFailureOr<Unit> init() async {
+  EitherFailureOr<void> init() async {
     if (defaultTargetPlatform == TargetPlatform.iOS) {
       await FirebaseMessaging.instance
           .setForegroundNotificationPresentationOptions(
@@ -56,7 +56,7 @@ class FirebaseMessagingRepositoryImpl implements FirebaseMessagingRepository {
           _processNotification(message, NotificationStartedType.onMessage));
       FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) =>
           _processNotification(message, NotificationStartedType.onResume));
-      return const Right(unit);
+      return const Right(null);
     }
     return Left(Failure.permissionDenied());
   }

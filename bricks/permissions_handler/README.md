@@ -34,7 +34,7 @@ final permissionsHandlerRepositoryProvider = Provider(
       (_) => PermissionsHandlerRepositoryImpl(),
 );
 
-abstract class PermissionsHandlerRepository {
+abstract interface class PermissionsHandlerRepository {
   Future requestPermission({
     required Function() onSuccess,
     required Function() onFail,

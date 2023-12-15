@@ -5,7 +5,7 @@ class {{model_name.pascalCase()}} extends Equatable {
   final {{#hasSpecial}}{{{type}}}{{/hasSpecial}}{{^hasSpecial}}{{type}}{{/hasSpecial}} {{name}};{{/properties}}
 
   const {{model_name.pascalCase()}}({{#hasProperties}}{ {{#properties}}
-    required this.{{name}},{{/properties}}
+    {{^isOptional}}required{{/isOptional}} this.{{name}},{{/properties}}
   }{{/hasProperties}});
 
   

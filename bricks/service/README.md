@@ -38,7 +38,7 @@ import '../../domain/entities/user.dart';
 
 final databaseServiceProvider = Provider<DatabaseService>((ref) => DatabaseServiceImpl());
 
-abstract class DatabaseService { 
+abstract interface class DatabaseService { 
   Future<void> init();
 }
 

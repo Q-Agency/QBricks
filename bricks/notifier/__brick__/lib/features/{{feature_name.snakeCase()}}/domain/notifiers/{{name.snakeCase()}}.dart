@@ -2,7 +2,7 @@
 import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()}}/data/repositories/{{dependencyName.snakeCase()}}.dart';
 {{/dependencies}}
 import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()}}/domain/entities/{{entity.snakeCase()}}.dart';
-import 'package:q_architecture/q_architecture.dart';
+import 'package:q_architecture/base_state_notifier.dart';
 
 final {{name.camelCase()}}Provider = BaseStateNotifierProvider<{{name.pascalCase()}}, {{entity.pascalCase()}}>((ref) =>
     {{name.pascalCase()}}(

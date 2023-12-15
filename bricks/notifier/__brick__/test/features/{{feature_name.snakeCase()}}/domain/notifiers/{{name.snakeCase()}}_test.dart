@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:q_architecture/q_architecture.dart';
+import 'package:q_architecture/base_state_notifier.dart';
 import 'package:state_notifier_test/state_notifier_test.dart';
 
 import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()}}/domain/entities/{{entity.snakeCase()}}.dart';
@@ -20,19 +20,17 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   {{#dependencies}}{{dependencyName.camelCase()}} = Mock{{dependencyName.pascalCase()}}();
   {{/dependencies}}
-  });
-
-  ProviderContainer getProviderContainer() => ProviderContainer(overrides: [
+  providerContainer = ProviderContainer(overrides: [
     {{name.camelCase()}}Provider.overrideWith((ref) =>
       {{name.pascalCase()}}({{#dependencies}}{{dependencyName.camelCase()}}, {{/dependencies}}ref)),
   ]);
+  });
 
   {{#methods}}
   group('{{methodName}}', () {
   stateNotifierTest<{{name.pascalCase()}}, BaseState<{{entity.pascalCase()}}>>(
     'executes success flow',
     setUp: () {
-      providerContainer = getProviderContainer();
       // when(someRepository.method).thenAnswer(
       // (_) async => const Right(None()),
       // );
@@ -45,7 +43,6 @@ void main() {
   stateNotifierTest<{{name.pascalCase()}}, BaseState<{{entity.pascalCase()}}>>(
     'executes failure flow',
     setUp: () {
-      providerContainer = getProviderContainer();
       // when(someRepository.method).thenAnswer(
       // (_) async => Left(testGenericFailure),
       // );
