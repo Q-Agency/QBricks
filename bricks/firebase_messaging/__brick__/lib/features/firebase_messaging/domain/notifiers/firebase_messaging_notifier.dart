@@ -5,38 +5,34 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 {{/system_foreground_notifications}}
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
-import 'package:q_architecture/base_state_notifier.dart';
+import 'package:q_architecture/base_notifier.dart';
 import 'package:{{project_name.snakeCase()}}/features/firebase_messaging/data/repositories/firebase_messaging_repository.dart';
 import 'package:{{project_name.snakeCase()}}/features/firebase_messaging/domain/entities/firebase_messaging_notification.dart';
 
-final firebaseMessagingNotifierProvider = StateNotifierProvider.autoDispose<
+final firebaseMessagingNotifierProvider = NotifierProvider.autoDispose<
     FirebaseMessagingNotifier, BaseState<FirebaseMessagingNotification>>(
-  (ref) => FirebaseMessagingNotifier(
-    ref.watch(firebaseMessagingRepositoryProvider),
-    ref,
-  )..init(),
+  () => FirebaseMessagingNotifier(),
 );
 
 class FirebaseMessagingNotifier
-    extends BaseStateNotifier<FirebaseMessagingNotification> {
-  final FirebaseMessagingRepository _firebaseMessagingRepository;
+    extends AutoDisposeBaseNotifier<FirebaseMessagingNotification> {
+  late FirebaseMessagingRepository _firebaseMessagingRepository;
   {{#system_foreground_notifications}}
   FlutterLocalNotificationsPlugin? _flutterLocalNotificationsPlugin;
   {{/system_foreground_notifications}}
 
-  FirebaseMessagingNotifier(this._firebaseMessagingRepository, super.ref);
-
   @override
-  void dispose() {
-    _firebaseMessagingRepository.close();
-    super.dispose();
+  void prepareForBuild() {
+    _firebaseMessagingRepository = ref.watch(firebaseMessagingRepositoryProvider);
+    ref.onDispose(() => _firebaseMessagingRepository.close());
+    _init();
   }
 
-  Future<void> init() async {
+  Future<void> _init() async {
     if (kIsWeb) return;
 
     final result = await _firebaseMessagingRepository.init();
-    result.fold((failure) => setGlobalFailure(failure), (_) {
+    result.fold(setGlobalFailure, (_) {
       _getToken();
       _onTokenRefresh();
       _listenForNotification();
