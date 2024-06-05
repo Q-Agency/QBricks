@@ -16,12 +16,12 @@ mason make notifier --name loginNotifier --feature_name login
 
 ## Variables ✨
 
-| Variable       | Description                    | Default       | Type      |
-|----------------|--------------------------------|---------------| --------- |
-| `project_name` | The name of the project        | app           | `string`  |
-| `name`         | The name of the notifier       | loginNotifier | `string`  |
-| `entity`       | Entity related to the notifier | user          | `string`  |
-| `feature_name` | The name of the feature        | login         | `string`  |
+| Variable       | Description                    | Default       | Type     |
+| -------------- | ------------------------------ | ------------- | -------- |
+| `project_name` | The name of the project        | app           | `string` |
+| `name`         | The name of the notifier       | loginNotifier | `string` |
+| `entity`       | Entity related to the notifier | user          | `string` |
+| `feature_name` | The name of the feature        | login         | `string` |
 
 ## Outputs 📦
 
@@ -42,21 +42,18 @@ import 'package:myapp/common/domain/notifiers/base_state_notifier.dart';
 import 'package:myapp/common/domain/notifiers/base_state.dart';
 import 'package:myapp/features/login/domain/entities/user.dart';
 
-final loginNotifierProvider = BaseStateNotifierProvider<LoginNotifier, User>((ref) => 
-  LoginNotifier(
-    ref,
-  ));
+final loginNotifierProvider = NotifierProvider<LoginNotifier, BaseState<User>>((ref) => 
+  LoginNotifier());
 
-class LoginNotifier extends BaseStateNotifier<User>{
+class LoginNotifier extends BaseNotifier<User>{
   
-  LoginNotifier(super.ref);
+  @override
+  void prepareForBuild() {}
   
   Future<void> login() async {
     throw UnimplementedError();
   }
 }
-
-
 
 // login_notifier_test.dart
 import 'package:flutter_test/flutter_test.dart';
@@ -70,38 +67,39 @@ void main() {
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
 
+    providerContainer = ProviderContainer(overrides: [
+      loginNotifierProvider.overrideWith((ref) => LoginNotifier()),
+    ]);
   });
 
-  ProviderContainer getProviderContainer() => ProviderContainer(overrides: [
-    loginNotifierProvider
-        .overrideWith((ref) => LoginNotifier(ref)),
-  ]);
+  group('login()', () {
+    test('executes success flow', () async {
+      // when(someRepository.method).thenAnswer(
+      // (_) async => const Right(None()),
+      // );
+      final states = <BaseState>[];
+      providerContainer.listen(
+        loginNotifierProvider,
+        (_, state) => states.add(state),
+      );
+      final notifier = providerContainer.read(loginNotifierProvider.notifier);
+      await notifier.login();
+      expect([], states);
+    });
 
-  group('login(String username)', () {
-    stateNotifierTest<LoginNotifier, BaseState<User>>(
-      'executes success flow',
-      setUp: () {
-        providerContainer = getProviderContainer();
-        // when(someRepository.method).thenAnswer(
-        // (_) async => Future.value(const Right(None())),
-        // );
-      },
-      build: () => providerContainer.read(loginNotifierProvider.notifier),
-      actions: (stateNotifier) {},
-      expect: () => [],
-    );
-    stateNotifierTest<LoginNotifier, BaseState<User>>(
-      'executes failure flow',
-      setUp: () {
-        providerContainer = getProviderContainer();
-        // when(someRepository.method).thenAnswer(
-        // (_) async => Future.value(const Right(None())),
-        // );
-      },
-      build: () => providerContainer.read(loginNotifierProvider.notifier),
-      actions: (stateNotifier) {},
-      expect: () => [],
-    );
+    test('executes failure flow', () async {
+      // when(someRepository.method).thenAnswer(
+      // (_) async => Left(testGenericFailure),
+      // );
+      final states = <BaseState>[];
+      providerContainer.listen(
+        loginNotifierProvider,
+        (_, state) => states.add(state),
+      );
+      final notifier = providerContainer.read(loginNotifierProvider.notifier);
+      await notifier.login();
+      expect([], states);
+    });
   });
 }
 ```
