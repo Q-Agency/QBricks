@@ -3,10 +3,8 @@ import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()
 {{/dependencies}}
 import 'package:q_architecture/base_notifier.dart';
 
-final {{name.camelCase()}}Provider = NotifierProvider<{{name.pascalCase()}}, >((ref) =>
-    {{name.pascalCase()}}(
-      {{#dependencies}}ref.watch({{dependencyName.camelCase()}}Provider),{{/dependencies}} ref,
-    ));
+final {{name.camelCase()}}Provider = NotifierProvider<{{name.pascalCase()}}, >(() =>
+    {{name.pascalCase()}}());
 
 class {{name.pascalCase()}} extends SimpleNotifier<>{
   {{#dependencies}}final {{dependencyName.pascalCase()}} _{{dependencyName.camelCase()}};
