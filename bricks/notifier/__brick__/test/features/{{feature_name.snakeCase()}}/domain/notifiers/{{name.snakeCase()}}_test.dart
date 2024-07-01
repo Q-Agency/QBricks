@@ -1,8 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:q_architecture/base_state_notifier.dart';
-import 'package:state_notifier_test/state_notifier_test.dart';
+import 'package:q_architecture/base_notifier.dart';
 
 import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()}}/domain/entities/{{entity.snakeCase()}}.dart';
 import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()}}/domain/notifiers/{{name.snakeCase()}}.dart';
@@ -22,35 +21,42 @@ void main() {
   {{/dependencies}}
   providerContainer = ProviderContainer(overrides: [
     {{name.camelCase()}}Provider.overrideWith((ref) =>
-      {{name.pascalCase()}}({{#dependencies}}{{dependencyName.camelCase()}}, {{/dependencies}}ref)),
+      {{name.pascalCase()}}()),
+  {{#dependencies}}
+    {{dependencyName.camelCase()}}Provider.overrideWith((ref) => {{dependencyName.camelCase()}}),
+  {{/dependencies}}
   ]);
   });
 
   {{#methods}}
   group('{{methodName}}', () {
-  stateNotifierTest<{{name.pascalCase()}}, BaseState<{{entity.pascalCase()}}>>(
-    'executes success flow',
-    setUp: () {
+    test('executes success flow', () async {
       // when(someRepository.method).thenAnswer(
       // (_) async => const Right(None()),
       // );
-    },
-    build: () => providerContainer.read({{name.camelCase()}}Provider.notifier),
-    actions: (stateNotifier) {},
-    expect: () => [],
-  );
+      final states = <BaseState>[];
+      providerContainer.listen(
+        {{name.camelCase()}}Provider,
+        (_, state) => states.add(state),
+      );
+      final notifier = providerContainer.read({{name.camelCase()}}Provider.notifier);
+      // await notifier.{{methodName}}();
+      // expect([], states);
+    });
 
-  stateNotifierTest<{{name.pascalCase()}}, BaseState<{{entity.pascalCase()}}>>(
-    'executes failure flow',
-    setUp: () {
+    test('executes failure flow', () async {
       // when(someRepository.method).thenAnswer(
       // (_) async => Left(testGenericFailure),
       // );
-    },
-    build: () => providerContainer.read({{name.camelCase()}}Provider.notifier),
-    actions: (stateNotifier) {},
-    expect: () => [],
-  );
+      final states = <BaseState>[];
+      providerContainer.listen(
+        {{name.camelCase()}}Provider,
+        (_, state) => states.add(state),
+      );
+      final notifier = providerContainer.read({{name.camelCase()}}Provider.notifier);
+      // await notifier.{{methodName}}();
+      // expect([], states);
+    });
   });
   {{/methods}}
 }
