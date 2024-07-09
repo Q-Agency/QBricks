@@ -11,11 +11,10 @@ class {{model_name.pascalCase()}} extends Equatable {
   
   {{model_name.pascalCase()}} copyWith({{#hasProperties}}{ {{#properties}}
     {{#hasSpecial}}{{{type}}}{{/hasSpecial}}{{^hasSpecial}}{{type}}{{/hasSpecial}}{{^isOptional}}?{{/isOptional}} {{name}},{{/properties}}
-  }{{/hasProperties}}) {
-    return {{model_name.pascalCase()}}({{#properties}}
+  }{{/hasProperties}}) => {{model_name.pascalCase()}}({{#properties}}
       {{name}}: {{name}} ?? this.{{name}},{{/properties}}
     );
-  }
+  
   @override
   List<Object?> get props => [{{#properties}}
         {{name}},{{/properties}}
