@@ -2,6 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:q_architecture/q_architecture.dart';
 
 import 'package:{{project_name.snakeCase()}}/common/data/api_client.dart';
+import 'package:{{project_name.snakeCase()}}/common/data/generic_error_resolver.dart';
 import 'package:{{project_name.snakeCase()}}/common/data/providers.dart';
 
 final {{name.camelCase()}}Provider = Provider<{{name.pascalCase()}}>((ref) =>
@@ -16,7 +17,7 @@ abstract interface class {{name.pascalCase()}} { {{#methods}}
   {{/methods}}
 }
 
-class {{name.pascalCase()}}Impl implements {{name.pascalCase()}}{
+class {{name.pascalCase()}}Impl with ErrorToFailureMixin  implements {{name.pascalCase()}}{
   final ApiClient _apiClient;
   {{#dependencies}}final {{dependencyName.pascalCase()}} _{{dependencyName.camelCase()}};
   {{/dependencies}}
@@ -26,7 +27,11 @@ class {{name.pascalCase()}}Impl implements {{name.pascalCase()}}{
   {{#methods}}
   @override
   EitherFailureOr<{{{type}}}> {{methodName}}({{#parameters}}
-      {{{type}}} {{parameterName}},{{/parameters}}) async {
-    throw UnimplementedError();
-  } {{/methods}}
+      {{{type}}} {{parameterName}},{{/parameters}}) => execute(
+        () async {
+          throw UnimplementedError();
+        },
+        errorResolver: const GenericErrorResolver(),
+      ); 
+  {{/methods}}
 }
