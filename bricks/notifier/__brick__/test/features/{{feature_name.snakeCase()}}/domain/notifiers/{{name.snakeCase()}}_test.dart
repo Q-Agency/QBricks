@@ -20,8 +20,6 @@ void main() {
   {{#dependencies}}{{dependencyName.camelCase()}} = Mock{{dependencyName.pascalCase()}}();
   {{/dependencies}}
   providerContainer = ProviderContainer(overrides: [
-    {{name.camelCase()}}Provider.overrideWith((ref) =>
-      {{name.pascalCase()}}()),
   {{#dependencies}}
     {{dependencyName.camelCase()}}Provider.overrideWith((ref) => {{dependencyName.camelCase()}}),
   {{/dependencies}}

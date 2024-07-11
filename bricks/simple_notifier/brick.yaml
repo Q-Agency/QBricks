@@ -23,3 +23,8 @@ vars:
     description: Name of your notifier
     default: loginNotifier
     prompt: What is your notifier name?
+
+  state:
+    type: string
+    description: State related to the notifier
+    prompt: Which state is related to the notifier?
