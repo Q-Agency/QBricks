@@ -21,11 +21,12 @@ mason make simple_notifier --name loginNotifier --feature_name login
 | `project_name` | The name of the project         | app           | `string` |
 | `name`         | The name of the simple_notifier | loginNotifier | `string` |
 | `feature_name` | The name of the feature         | login         | `string` |
+| `state`        | The name of the state           |               | `string` |
 
 ## Outputs 📦
 
 ```
-mason make simple_notifier --name loginNotifier --feature_name login
+mason make simple_notifier --name loginNotifier --feature_name login --state customState
 ├── features
       ├── login
           ├── domain
@@ -36,19 +37,18 @@ mason make simple_notifier --name loginNotifier --feature_name login
 ```dart
 // login_notifier.dart
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:q_architecture/q_architecture.dart';
 
-import 'package:myapp/common/domain/notifiers/base_state_notifier.dart';
-import 'package:myapp/common/domain/notifiers/base_state.dart';
-import 'package:myapp/features/login/domain/entities/user.dart';
+import 'package:myapp/features/login/domain/notifiers/custom_state.dart';
 
-final loginNotifierProvider = NotifierProvider<LoginNotifier, >(() => 
+final loginNotifierProvider = NotifierProvider<LoginNotifier, CustomState>(() => 
   LoginNotifier());
 
-class LoginNotifier extends SimpleNotifier<>{
+class LoginNotifier extends SimpleNotifier<CustomState>{
   
   LoginNotifier(super.ref);
   @override
-   prepareForBuild() {
+  CustomState prepareForBuild() {
     return ;
   }
   
@@ -62,8 +62,10 @@ class LoginNotifier extends SimpleNotifier<>{
 // login_notifier_test.dart
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:state_notifier_test/state_notifier_test.dart';
 import 'package:mocktail/mocktail.dart';
+
+import 'package:myapp/features/login/domain/notifiers/login_notifier.dart';
+import 'package:myapp/features/login/domain/notifiers/custom_state.dart';
 
 void main() {
   late ProviderContainer providerContainer;
@@ -72,21 +74,15 @@ void main() {
     TestWidgetsFlutterBinding.ensureInitialized();
 
     providerContainer = ProviderContainer(overrides: [
-      loginNotifierProvider.overrideWith((ref) => LoginNotifier()),
     ]);
   });
-
-  ProviderContainer getProviderContainer() => ProviderContainer(overrides: [
-    loginNotifierProvider
-        .overrideWith((ref) => LoginNotifier(ref)),
-  ]);
 
   group('login()', () {
     test('executes success flow', () async {
       when(someRepository.method).thenAnswer(
         (_) async => const Right(None()),
       );
-      final states = <>[];
+      final states = <CustomState>[];
       providerContainer.listen(
          loginNotifierProvider,
          (_, state) => states.add(state),
@@ -100,7 +96,7 @@ void main() {
       when(someRepository.method).thenAnswer(
         (_) async => Left(testGenericFailure),
       );
-      final states = <>[];
+      final states = <CustomState>[];
       providerContainer.listen(
         loginNotifierProvider,
         (_, state) => states.add(state),
@@ -109,5 +105,6 @@ void main() {
       await notifier.login();
       expect([], states);
     });
+  });
 }
 ```

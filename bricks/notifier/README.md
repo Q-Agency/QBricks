@@ -38,8 +38,7 @@ mason make notifier --name loginNotifier --feature_name login --entity user
 // login_notifier.dart
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:myapp/common/domain/notifiers/base_state_notifier.dart';
-import 'package:myapp/common/domain/notifiers/base_state.dart';
+import 'package:q_architecture/base_notifier.dart';
 import 'package:myapp/features/login/domain/entities/user.dart';
 
 final loginNotifierProvider = NotifierProvider<LoginNotifier, BaseState<User>>((ref) => 
@@ -58,8 +57,9 @@ class LoginNotifier extends BaseNotifier<User>{
 // login_notifier_test.dart
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:state_notifier_test/state_notifier_test.dart';
 import 'package:mocktail/mocktail.dart';
+
+import 'package:myapp/features/login/domain/notifiers/login_notifier.dart';
 
 void main() {
   late ProviderContainer providerContainer;
