@@ -1,4 +1,5 @@
 YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
 NC='\033[0m'
 
 # project_name="$1"
@@ -14,12 +15,18 @@ printf "${YELLOW}What is the feature name? > ${NC}"
 read feature_name
 printf "${YELLOW}What is the entity name? > ${NC}"
 read entity
+printf "${YELLOW}Do you need custom state? If yes name it or leave it blank so BaseState and BaseNotifier will be used. > ${NC}"
+read custom_state
 
-echo "Setup your entity:"
+echo -e "${BLUE}Setup your entity:${NC}"
 mason make entity --feature_name $feature_name --model_name $entity
-echo "Setup your response/request model:"
+echo -e "${BLUE}Setup your response/request model:${NC}"
 mason make model --feature_name $feature_name
-echo "Setup your repository:"
+echo -e "${BLUE}Setup your repository:${NC}"
 mason make repository --feature_name $feature_name --project_name $project_name
-echo "Setup your notifier:"
-mason make notifier --feature_name $feature_name --project_name $project_name --entity $entity
+echo -e "${BLUE}Setup your notifier:${NC}"
+if [ "$custom_state" = "" ]; then
+    mason make notifier --feature_name $feature_name --project_name $project_name --entity $entity
+else
+    mason make simple_notifier --feature_name $feature_name --project_name $project_name --state $custom_state
+fi
