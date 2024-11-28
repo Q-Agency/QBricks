@@ -4,6 +4,6 @@ description: A brick to create a flutter storage service with shared_preferences
 version: 0.1.0+1
 
 environment:
-  mason: ">=0.1.0-dev.38 <0.1.0"
+  mason: ^0.1.0
 
 vars:

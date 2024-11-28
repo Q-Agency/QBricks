@@ -4,6 +4,11 @@ description: A brick to create a permissions handler repository with iOS/Android
 version: 0.1.0+1
 
 environment:
-  mason: ">=0.1.0-dev.38 <0.1.0"
+  mason: ^0.1.0
 
 vars:
+  project_name:
+    default: myapp
+    type: string
+    description: The project name
+    prompt: What is the project name?
