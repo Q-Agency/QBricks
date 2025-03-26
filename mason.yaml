@@ -25,7 +25,5 @@ bricks:
     path: bricks/local_auth
   url_launcher:
     path: bricks/url_launcher
-  bottom_navigation_bar:
-    path: bricks/bottom_navigation_bar
   page:
     path: bricks/page

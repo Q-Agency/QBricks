@@ -1,3 +1,4 @@
 .mason/
 test
 mason-lock.json
+*.dill
