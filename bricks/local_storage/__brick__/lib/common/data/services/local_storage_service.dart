@@ -1,13 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-final localStorageServiceProvider = Provider<LocalStorageService>(
-  (_) => LocalStorageServiceImpl(
-    const FlutterSecureStorage(),
-    SharedPreferences.getInstance(),
-  ),
-);
 
 abstract interface class LocalStorageService {
   Future<void> deleteAll();
@@ -18,24 +10,20 @@ class LocalStorageServiceImpl implements LocalStorageService {
   final Future<SharedPreferences> _sharedPreferencesFuture;
   SharedPreferences? _sharedPreferencesInstance;
 
-  LocalStorageServiceImpl(
-    this._secureStorage,
-    this._sharedPreferencesFuture,
-  ) {
-    _clearSecureStorageOnReinstall();
-  }
+  LocalStorageServiceImpl({
+    FlutterSecureStorage? secureStorage,
+    Future<SharedPreferences>? sharedPreferences,
+  })  : _secureStorage = secureStorage ?? FlutterSecureStorage(),
+        _sharedPreferencesFuture = sharedPreferences ?? SharedPreferences.getInstance() {
+          _clearSecureStorageOnReinstall();
+        }
 
-  Future<SharedPreferences> get _sharedPrefs async {
-    return _sharedPreferencesInstance ??= await _sharedPreferencesFuture;
-  }
+  Future<SharedPreferences> get _sharedPrefs async =>
+    _sharedPreferencesInstance ??= await _sharedPreferencesFuture;
 
   @override
-  Future<void> deleteAll() async {
-    await Future.wait([
-      _deleteAllSharedPrefs(),
-      _deleteAllSecure(),
-    ]);
-  }
+  Future<void> deleteAll() =>
+      Future.wait([_deleteAllSharedPrefs(), _deleteAllSecure()]);
 
   Future<T?> _read<T>(LocalStorageKey key) async =>
       (await _sharedPrefs).get(key.key) as T?;

@@ -7,7 +7,6 @@ tutorial
 
 ## Prerequisites
 
-- [hooks_riverpod](https://pub.dev/packages/hooks_riverpod)
 - [permission_handler](https://pub.dev/packages/permission_handler)
 
 ## How to use 🚀
@@ -32,6 +31,9 @@ mason make permissions_handler
 ```
 
 ## Setup
+
+Register your PermissionHandlerService and PermissionHandlerRepository classes
+with GetIt's registerSingleton() method into your service locator.
 
 While the permissions are being requested during runtime, you'll still need to
 tell the OS which permissions your app might potentially use. That requires
@@ -141,10 +143,8 @@ You must list permission you want to use in your application :
    following lists the relationship between `Permission` and
    `The key of Info.plist`:
 
-   | Permission | Info.plist | Macro | |
-   -------------------------------------------------------------------------------------------
-   |
-   -------------------------------------------------------------------------------------------------------------
+   ## | Permission | Info.plist | Macro | |
+   ## |
    | ------------------------------------ | | PermissionGroup.calendar |
    NSCalendarsUsageDescription | PERMISSION_EVENTS | | PermissionGroup.reminders
    | NSRemindersUsageDescription | PERMISSION_REMINDERS | |

@@ -1,14 +1,10 @@
 import 'package:either_dart/either.dart';
 import 'package:flutter/services.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:local_auth/error_codes.dart';
 import 'package:local_auth/local_auth.dart';
 // ignore: depend_on_referenced_packages
 import 'package:local_auth_android/local_auth_android.dart';
 import 'package:q_architecture/q_architecture.dart';
-
-final localAuthRepositoryProvider = Provider<LocalAuthRepository>(
-    (ref) => LocalAuthRepositoryImpl(LocalAuthentication()));
 
 abstract interface class LocalAuthRepository {
   EitherFailureOr<BiometricType> getAvailableBiometricType();
@@ -23,7 +19,8 @@ abstract interface class LocalAuthRepository {
 class LocalAuthRepositoryImpl implements LocalAuthRepository {
   final LocalAuthentication _localAuthentication;
 
-  const LocalAuthRepositoryImpl(this._localAuthentication);
+  LocalAuthRepositoryImpl({LocalAuthentication? localAuthentication})
+      : _localAuthentication = localAuthentication ?? LocalAuthentication();
 
   @override
   EitherFailureOr<bool> authenticate({

@@ -1,6 +1,6 @@
-name: notifier
-description: A brick to produce boilerplate code for new notifier using riverpod
-version: 0.0.1+4
+name: base_notifier
+description: A brick to produce boilerplate code for new base_notifier
+version: 1.0.0+1
 
 environment:
   mason: ^0.1.0

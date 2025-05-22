@@ -6,7 +6,6 @@ A brick to add url_launcher feature to your project
 
 ## Prerequisites
 
-- [hooks_riverpod](https://pub.dev/packages/hooks_riverpod)
 - [url_launcher](https://pub.dev/packages/url_launcher)
 
 ## How to use 🚀
@@ -24,3 +23,8 @@ mason make url_launcher
           ├── repositories
                 ├── url_launcher_repository.dart
 ```
+
+## Steps to finish setup
+
+- register your UrlLauncherRepository with GetIt's registerSingleton() method
+  into your service locator

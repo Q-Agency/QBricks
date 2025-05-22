@@ -7,7 +7,7 @@ together with a test file template
 
 ## Prerequisites
 
-Installed version of [hooks_riverpod](https://pub.dev/packages/hooks_riverpod)
+Installed version of [get_it](https://pub.dev/packages/get_it)
 
 ## How to use 🚀
 
@@ -33,61 +33,7 @@ mason make repository --name loginRepository --feature_name login
                       ├── login_repository.dart
 ```
 
-```dart
-// login_repository.dart
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:q_architecture/q_architecture.dart';
+## Steps to finish setup
 
-import 'package:myapp/features/login/domain/entities/user.dart';
-import 'package:myapp/common/data/generic_error_resolver.dart';
-
-final loginRepositoryProvider = Provider<LoginRepository>((ref) => 
-    LoginRepositoryImpl(ref.watch(apiClientProvider)));
-
-abstract interface class LoginRepository { 
-  Future<User> login();
-}
-
-class LoginRepositoryImpl with ErrorToFailureMixin implements LoginRepository {
-  final ApiClient _apiClient;
-  
-  LoginRepositoryImpl(this._apiClient);
-  
-  @override
-  Future<User> login() => execute(() async {
-    // TODO: - Implement method
-  }, errorResolver: const GenericErrorResolver());
-}
-
-
-// login_repository_test.dart
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
-
-import 'package:myapp/features/login/data/repositories/login_repository.dart';
-
-class MockApiClient extends Mock implements ApiClient {}
-
-void main() {
-  late ApiClient apiClient;
-  
-  late LoginRepository loginRepository;
-  setUp(() {
-    apiClient = MockApiClient();
-    
-    loginRepository = LoginRepositoryImpl(apiClient);
-  });
-    
-  group('login()', () {
-    test('executes success flow', () async {
-      final value = loginRepository.login()();
-      //expect(value, equals(smth));
-    });
-    
-    test('executes failure flow', () async {
-      final value = loginRepository.login()();
-      //expect(value, equals(smth));
-    });
-  });
-}
-```
+- register your repository with GetIt's registerSingleton() method into your
+  service locator

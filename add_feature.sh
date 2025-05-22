@@ -26,7 +26,7 @@ echo -e "${BLUE}Setup your repository:${NC}"
 mason make repository --feature_name $feature_name --project_name $project_name
 echo -e "${BLUE}Setup your notifier:${NC}"
 if [ "$custom_state" = "" ]; then
-    mason make notifier --feature_name $feature_name --project_name $project_name --entity $entity
+    mason make base_notifier --feature_name $feature_name --project_name $project_name --entity $entity
 else
-    mason make simple_notifier --feature_name $feature_name --project_name $project_name --state $custom_state
+    mason make q_notifier --feature_name $feature_name --project_name $project_name --state $custom_state
 fi
