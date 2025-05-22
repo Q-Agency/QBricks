@@ -1,11 +1,6 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'package:{{project_name.snakeCase()}}/common/data/models/permission_exception.dart';
-
-final permissionsHandlerServiceProvider = Provider<PermissionsHandlerService>(
-  (_) => PermissionsHandlerServiceImpl(),
-);
 
 abstract interface class PermissionsHandlerService {
   Future<bool> hasPermission({required PermissionType permissionType});

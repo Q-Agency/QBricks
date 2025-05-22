@@ -1,6 +1,6 @@
-name: simple_notifier
-description: A brick to produce boilerplate code for new simple_notifier using riverpod
-version: 0.0.1+4
+name: q_notifier
+description: A brick to produce boilerplate code for new q_notifier
+version: 1.0.0+1
 
 environment:
   mason: ^0.1.0

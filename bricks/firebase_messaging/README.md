@@ -6,13 +6,13 @@ A brick to add firebase_messaging feature to your project
 
 ## Prerequisites
 
-- [hooks_riverpod](https://pub.dev/packages/hooks_riverpod)
 - [firebase_messaging](https://pub.dev/packages/firebase_messaging)
 - [loggy](https://pub.dev/packages/loggy)
 - [equatable](https://pub.dev/packages/equatable)
 - [build_runner](https://pub.dev/packages/build_runner)
 - [json_serializable](https://pub.dev/packages/json_serializable)
-- [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications) if `system_foreground_notifications` set to `true`
+- [flutter_local_notifications](https://pub.dev/packages/flutter_local_notifications)
+  if `system_foreground_notifications` set to `true`
 
 ## How to use 🚀
 
@@ -22,9 +22,9 @@ mason make firebase_messaging --project_name app
 
 ## Variables ✨
 
-| Variable       | Description                                                                                                                       | Default | Type      |
-|----------------|-----------------------------------------------------------------------------------------------------------------------------------|---------|-----------|
-| `project_name` | The name of the project                                                                                                           | app     | `string`  |
+| Variable                          | Description                                                                                                                         | Default | Type      |
+| --------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ------- | --------- |
+| `project_name`                    | The name of the project                                                                                                             | app     | `string`  |
 | `system_foreground_notifications` | If you want to show system push notifications while the app is in foreground, `flutter_local_notifications` is required for Android | app     | `boolean` |
 
 ## Outputs 📦
@@ -46,19 +46,25 @@ mason make firebase_messaging --project_name app
 ```
 
 ## Steps to finish setup
+
 ### Android
-To finish Android setup 
+
+To finish Android setup
+
 - create Android app on Firebase console
 - generate keystore fingerprints and store them in Firebase console for your app
 - add google-services.json to android/app/ directory
-- add "classpath 'com.google.gms:google-services:<latest_version>'" to android/build.gradle file
-- add "apply plugin: 'com.google.gms.google-services'" to android/app/build.gradle file
+- add "classpath 'com.google.gms:google-services:<latest_version>'" to
+  android/build.gradle file
+- add "apply plugin: 'com.google.gms.google-services'" to
+  android/app/build.gradle file
 - about push notification icon:
-  - to make sure that notification icon is displayed properly on all Android devices and OS versions, 
-  add png icon with transparent background (or with solid background but transparent logo) to 
-  `res/drawable` folder (to find out more: https://stackoverflow.com/a/45318726)
-  - link icon from `res/drawable` in your manifest file (more info here 
-  https://firebase.google.com/docs/cloud-messaging/android/client#manifest)
+  - to make sure that notification icon is displayed properly on all Android
+    devices and OS versions, add png icon with transparent background (or with
+    solid background but transparent logo) to `res/drawable` folder (to find out
+    more: https://stackoverflow.com/a/45318726)
+  - link icon from `res/drawable` in your manifest file (more info here
+    https://firebase.google.com/docs/cloud-messaging/android/client#manifest)
   ```
   <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
      See README(https://goo.gl/l4GJaQ) for more. -->
@@ -76,13 +82,19 @@ To finish Android setup
   ```
 
 ### iOS
+
 To finish iOS setup
+
 - create iOS app on Firebase console
 - add auth key or push notification certificate from developer.apple.com to it
-- add PushNotification capability in Xcode (ios/Runner/Runner.entitlements file) 
+- add PushNotification capability in Xcode (ios/Runner/Runner.entitlements file)
 - add GoogleService-Info.plist file to ios/Runner directory
 
 ### Flutter
+
 - add `await Firebase.initializeApp()` in main.dart
-- add `ref.firebaseMessagingNotificationListener(context);` in the widget where you want to 
-start listening for push notifications
+- register FirebaseMessagingRepository and FirebaseMessagingNotifier (with
+  registerLazySingleton with dispose option) with GetIt into your service
+  locator
+- add QNotifierListener with FirebaseMessagingNotifier in the widget where you
+  want to start listening for push notifications

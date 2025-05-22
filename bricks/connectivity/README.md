@@ -6,7 +6,6 @@ A brick to add connectivity feature to your project
 
 ## Prerequisites
 
-- [hooks_riverpod](https://pub.dev/packages/hooks_riverpod)
 - [connectivity_plus](https://pub.dev/packages/connectivity_plus)
 
 ## How to use 🚀
@@ -18,7 +17,7 @@ mason make connectivity --project_name app
 ## Variables ✨
 
 | Variable       | Description             | Default | Type     |
-|----------------|-------------------------|---------|----------|
+| -------------- | ----------------------- | ------- | -------- |
 | `project_name` | The name of the project | app     | `string` |
 
 ## Outputs 📦
@@ -36,4 +35,7 @@ mason make connectivity --project_name app
 ```
 
 ## Steps to finish setup
-- add `ref.globalConnectivityListener();` in the widget where you want to listen for connection changes
+
+- register ConnectivityNotifier with GetIt into your service locator
+- add QNotifierListener with ConnectivityNotifier in the widget where you want
+  to listen for connection changes

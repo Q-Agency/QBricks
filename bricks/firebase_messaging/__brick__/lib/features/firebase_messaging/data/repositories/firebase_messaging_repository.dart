@@ -3,15 +3,9 @@ import 'dart:async';
 import 'package:either_dart/either.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
 import 'package:q_architecture/q_architecture.dart';
 import 'package:{{project_name.snakeCase()}}/features/firebase_messaging/domain/entities/firebase_messaging_notification.dart';
-
-final firebaseMessagingRepositoryProvider =
-Provider<FirebaseMessagingRepository>(
-      (ref) => FirebaseMessagingRepositoryImpl(),
-);
 
 abstract interface class FirebaseMessagingRepository {
   EitherFailureOr<void> init();
