@@ -4,7 +4,7 @@ void run(HookContext context) async {
   final logger = context.logger;
 
   if (logger.confirm(
-    '? Do you want to add dependencies to your notifier?',
+    '? Do you want to add dependencies to your q_notifier?',
     defaultValue: true,
   )) {
     logger.alert(lightYellow.wrap('enter "e" to exit adding dependencies'));
@@ -32,7 +32,7 @@ void run(HookContext context) async {
     };
   }
   if (!logger.confirm(
-    '? Do you want to add methods to your notifier?',
+    '? Do you want to add methods to your q_notifier?',
     defaultValue: true,
   )) {
     return;

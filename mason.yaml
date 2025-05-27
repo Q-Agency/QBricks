@@ -5,10 +5,10 @@ bricks:
     path: bricks/model
   repository:
     path: bricks/repository
-  notifier:
-    path: bricks/notifier
-  simple_notifier:
-    path: bricks/simple_notifier
+  base_notifier:
+    path: bricks/base_notifier
+  q_notifier:
+    path: bricks/q_notifier
   service:
     path: bricks/service
   local_storage:

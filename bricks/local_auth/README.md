@@ -6,7 +6,6 @@ A brick to add local_auth feature to your project
 
 ## Prerequisites
 
-- [hooks_riverpod](https://pub.dev/packages/hooks_riverpod)
 - [local_auth](https://pub.dev/packages/local_auth)
 
 ## How to use 🚀
@@ -18,7 +17,7 @@ mason make connectivity --project_name app
 ## Variables ✨
 
 | Variable       | Description             | Default | Type     |
-|----------------|-------------------------|---------|----------|
+| -------------- | ----------------------- | ------- | -------- |
 | `project_name` | The name of the project | app     | `string` |
 
 ## Outputs 📦
@@ -33,17 +32,25 @@ mason make local_auth --project_name app
 ```
 
 ## Steps to finish setup
+
+- register your LocalAuthRepository class with GetIt's registerSingleton()
+  method into your service locator
+
 ### Android
-- add permission to your AndroidManifest.xml file `<uses-permission android:name="android.permission.USE_BIOMETRIC"/>`
-- change that MainActivity (whether Java or Kotlin) extends FlutterFragmentActivity instead of FlutterActivity
-- then change res/values/styles.xml that style's parent is `"@style/Theme.AppCompat.Light.NoActionBar"` 
+
+- add permission to your AndroidManifest.xml file
+  `<uses-permission android:name="android.permission.USE_BIOMETRIC"/>`
+- change that MainActivity (whether Java or Kotlin) extends
+  FlutterFragmentActivity instead of FlutterActivity
+- then change res/values/styles.xml that style's parent is
+  `"@style/Theme.AppCompat.Light.NoActionBar"`
 - instead of `"@android:style/Theme.Light.NoTitleBar"`
 
 ### iOS
+
 - add permission to Info.plist file to use Face ID
+
 ```
 <key>NSFaceIDUsageDescription</key>
 <string>Text with explanation why you need to use Face ID></string>
 ```
-
-

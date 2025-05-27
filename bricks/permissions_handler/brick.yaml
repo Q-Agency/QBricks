@@ -1,7 +1,7 @@
 name: permissions_handler
 description: A brick to create a permissions handler repository with iOS/Android setup tutorial
 
-version: 0.1.0+1
+version: 1.0.0+1
 
 environment:
   mason: ^0.1.0

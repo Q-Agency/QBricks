@@ -1,6 +1,6 @@
 name: repository
-description: A brick to produce boilerplate code for new feature using riverpod
-version: 0.0.1+1
+description: A brick to produce boilerplate code for new repository
+version: 1.0.0+1
 
 environment:
   mason: ^0.1.0

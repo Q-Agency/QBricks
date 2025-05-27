@@ -1,12 +1,3 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import 'package:{{project_name.snakeCase()}}/common/data/providers.dart';
-
-final {{name.camelCase()}}Provider = Provider<{{name.pascalCase()}}>((ref) =>
-    {{name.pascalCase()}}Impl(
-      {{#dependencies}}ref.watch({{dependencyName.camelCase()}}Provider),{{/dependencies}}
-    ));
-
 abstract interface class {{name.pascalCase()}} { {{#methods}}
   Future<{{{type}}}> {{methodName}}({{#parameters}}
     {{{type}}} {{parameterName}},{{/parameters}});

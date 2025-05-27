@@ -3,29 +3,26 @@ import 'package:flutter/foundation.dart';
 import 'dart:convert';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 {{/system_foreground_notifications}}
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:loggy/loggy.dart';
-import 'package:q_architecture/base_notifier.dart';
+import 'package:q_architecture/q_architecture.dart';
 import 'package:{{project_name.snakeCase()}}/features/firebase_messaging/data/repositories/firebase_messaging_repository.dart';
 import 'package:{{project_name.snakeCase()}}/features/firebase_messaging/domain/entities/firebase_messaging_notification.dart';
 
-final firebaseMessagingNotifierProvider = NotifierProvider.autoDispose<
-    FirebaseMessagingNotifier, BaseState<FirebaseMessagingNotification>>(
-  () => FirebaseMessagingNotifier(),
-);
-
 class FirebaseMessagingNotifier
-    extends AutoDisposeBaseNotifier<FirebaseMessagingNotification> {
+    extends BaseNotifier<FirebaseMessagingNotification> {
   late FirebaseMessagingRepository _firebaseMessagingRepository;
   {{#system_foreground_notifications}}
   FlutterLocalNotificationsPlugin? _flutterLocalNotificationsPlugin;
   {{/system_foreground_notifications}}
 
-  @override
-  void prepareForBuild() {
-    _firebaseMessagingRepository = ref.watch(firebaseMessagingRepositoryProvider);
-    ref.onDispose(() => _firebaseMessagingRepository.close());
+  FirebaseMessagingNotifier(this._firebaseMessagingRepository, {super.autoDispose}) {
     _init();
+  }
+
+  @override
+  void dispose() {
+    _firebaseMessagingRepository.close();
+    super.dispose();
   }
 
   Future<void> _init() async {

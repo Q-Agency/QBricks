@@ -1,12 +1,7 @@
 import 'package:either_dart/either.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:q_architecture/q_architecture.dart';
-
-final filePickerRepositoryProvider = Provider<FilePickerRepository>(
-  (ref) => FilePickerRepositoryImpl(FilePicker.platform),
-);
 
 abstract interface class FilePickerRepository {
   EitherFailureOr<FilePickerResult?> pickFiles({
@@ -21,7 +16,8 @@ abstract interface class FilePickerRepository {
 class FilePickerRepositoryImpl implements FilePickerRepository {
   final FilePicker _filePicker;
 
-  const FilePickerRepositoryImpl(this._filePicker);
+  const FilePickerRepositoryImpl({FilePicker? filePicker})
+      : _filePicker = filePicker ?? FilePicker.platform;
 
   @override
   EitherFailureOr<FilePickerResult?> pickFiles({

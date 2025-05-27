@@ -2,23 +2,18 @@
 import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()}}/data/repositories/{{dependencyName.snakeCase()}}.dart';
 {{/dependencies}}
 import 'package:{{project_name.snakeCase()}}/features/{{feature_name.snakeCase()}}/domain/entities/{{entity.snakeCase()}}.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:q_architecture/base_notifier.dart';
-
-final {{name.camelCase()}}Provider = NotifierProvider<{{name.pascalCase()}}, BaseState<{{entity.pascalCase()}}>>(
-  () => {{name.pascalCase()}}(),
-);
+import 'package:q_architecture/q_architecture.dart';
 
 class {{name.pascalCase()}} extends BaseNotifier<{{entity.pascalCase()}}>{
-  {{#dependencies}}late {{dependencyName.pascalCase()}} _{{dependencyName.camelCase()}};
+  {{#dependencies}}final {{dependencyName.pascalCase()}} _{{dependencyName.camelCase()}};
   {{/dependencies}}
 
-  @override
-  void prepareForBuild() {
-  {{#dependencies}}
-    _{{dependencyName.camelCase()}} = ref.watch({{dependencyName.camelCase()}}Provider);
-  {{/dependencies}}
-  }
+  {{name.pascalCase()}}(
+    {{#dependencies}}
+    this._{{dependencyName.camelCase()}},
+    {{/dependencies}}
+    {super.autoDispose}
+  );
 
   {{#methods}}
   Future<{{{type}}}> {{methodName}}({{#parameters}}
