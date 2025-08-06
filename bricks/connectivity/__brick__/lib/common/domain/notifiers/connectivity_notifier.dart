@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:q_architecture/q_architecture.dart';
 
 import 'package:{{project_name.snakeCase()}}/common/utils/connection_status.dart';
 
