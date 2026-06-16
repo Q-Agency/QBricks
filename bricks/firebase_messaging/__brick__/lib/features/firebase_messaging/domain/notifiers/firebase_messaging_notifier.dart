@@ -10,7 +10,7 @@ import 'package:{{project_name.snakeCase()}}/features/firebase_messaging/domain/
 
 class FirebaseMessagingNotifier
     extends BaseNotifier<FirebaseMessagingNotification> {
-  late FirebaseMessagingRepository _firebaseMessagingRepository;
+  final FirebaseMessagingRepository _firebaseMessagingRepository;
   {{#system_foreground_notifications}}
   FlutterLocalNotificationsPlugin? _flutterLocalNotificationsPlugin;
   {{/system_foreground_notifications}}
@@ -88,7 +88,7 @@ class FirebaseMessagingNotifier
         android: initializationSettingsAndroid,
       );
       await _flutterLocalNotificationsPlugin?.initialize(
-        initializationSettings,
+        settings: initializationSettings,
         onDidReceiveNotificationResponse: (details) =>
             _parseLocalNotificationPayload(
           notificationResponse: details,
@@ -116,10 +116,10 @@ class FirebaseMessagingNotifier
       return;
     }
     _flutterLocalNotificationsPlugin?.show(
-      notification.hashCode,
-      title,
-      body,
-      _androidNotificationDetails(),
+      id: notification.hashCode,
+      title: title,
+      body: body,
+      notificationDetails: _androidNotificationDetails(),
       payload: jsonEncode(notification.toJson()),
     );
   }

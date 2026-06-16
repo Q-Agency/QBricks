@@ -34,15 +34,13 @@ mason make firebase_messaging --project_name app
 ├── features
       ├── firebase_messaging
           ├── data
-                ├── entities
-                      ├── firebase_messaging_notification.dart
                 ├── repositories
                       ├── firebase_messaging_repository.dart
           ├── domain
+                ├── entities
+                      ├── firebase_messaging_notification.dart
                 ├── notifiers
                       ├── firebase_messaging_notifier.dart
-                ├── utils
-                      ├── firebase_messaging_extensions.dart
 ```
 
 ## Steps to finish setup
@@ -54,10 +52,10 @@ To finish Android setup
 - create Android app on Firebase console
 - generate keystore fingerprints and store them in Firebase console for your app
 - add google-services.json to android/app/ directory
-- add "classpath 'com.google.gms:google-services:<latest_version>'" to
-  android/build.gradle file
-- add "apply plugin: 'com.google.gms.google-services'" to
-  android/app/build.gradle file
+- add "id("com.google.gms.google-services") version "<latest_version>" apply
+  false:'" to settings.gradle.kts file
+- add "id("com.google.gms.google-services")" to plugins block in
+  android/app/build.gradle.kts file
 - about push notification icon:
   - to make sure that notification icon is displayed properly on all Android
     devices and OS versions, add png icon with transparent background (or with
